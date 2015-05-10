@@ -1,3 +1,7 @@
+locastic_core:
+    resource: "@LocasticCoreBundle/Resources/config/routing.yml"
+    prefix:   /
+
 locastic_public:
     resource: "@LocasticPublicBundle/Resources/config/routing.yml"
     prefix:   /
