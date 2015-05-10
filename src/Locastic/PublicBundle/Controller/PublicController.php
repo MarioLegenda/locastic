@@ -8,6 +8,5 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 class PublicController extends ContainerAware
 {
     public function unauthorizedAction() {
-        die('kreten');
     }
 } 

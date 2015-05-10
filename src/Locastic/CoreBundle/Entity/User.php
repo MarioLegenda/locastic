@@ -25,7 +25,6 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
      * @Assert\NotBlank(message = "Username has to be provided")
-     * @Assert\NotNull(message = "Username has to be provided")
      * @Assert\Email(message = "Username has to be a valid email")
      */
     private $username;
@@ -34,7 +33,6 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(max = 4096)
      * @Assert\NotBlank(message = "Password has to be provided")
-     * @Assert\NotNull(message = "Password has to be provided")
      * @Assert\Length(
      *      min = 8,
      *      max = 4096,
@@ -46,7 +44,6 @@ class User implements UserInterface, \Serializable
      /**
      * @Assert\Length(max = 4096)
      * @Assert\NotBlank(message = "Confirmed password has to be provided")
-     * @Assert\NotNull(message = "Confirmed password has to be provided")
      * @Assert\Length(
      *      min = 8,
      *      max = 4096,
@@ -58,14 +55,12 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
      * @Assert\NotBlank(message = "Name has to be provided")
-     * @Assert\NotNull(message = "Name has to be provided")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
      * @Assert\NotBlank(message = "Lastname has to be provided")
-     * @Assert\NotNull(message = "Lastname has to be provided")
      */
     private $lastname;
 
@@ -85,6 +80,11 @@ class User implements UserInterface, \Serializable
     private $isActive;
 
     /**
+     * @ORM\Column(type="string", length=40, options={"fixed" = true}, name="verification_hash")
+     */
+    private $verificationHash;
+
+    /**
      * @ORM\Column(type="smallint", nullable=false)
      */
     private $verified;
@@ -93,11 +93,6 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Locastic\CoreBundle\Entity\Role", mappedBy="user", cascade="persist")
      **/
     private $roles;
-
-    /**
-     * @ORM\OneToOne(targetEntity="Locastic\CoreBundle\Entity\EmailVerification", mappedBy="user", cascade="persist")
-     **/
-    private $verification;
 
     public function __construct() {
         $this->logged = new \DateTime();
@@ -184,12 +179,12 @@ class User implements UserInterface, \Serializable
         return $this->isActive;
     }
 
-    public function setVerification(EmailVerification $verification) {
-        $this->verification = $verification;
+    public function setVerificationHash($hash) {
+        return $this->verificationHash = $hash;
     }
 
-    public function getVerification() {
-        return $this->verification;
+    public function getVerificationHash() {
+        return $this->verificationHash;
     }
 
 

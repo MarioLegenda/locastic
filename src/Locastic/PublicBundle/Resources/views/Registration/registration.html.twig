@@ -1,0 +1,83 @@
+{% extends '::unAuthLayout.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+    {% block header %} {{ include('::_partials/header.html.twig') }} {% endblock %}
+
+    <div class="Container">
+        <div class="FormPosition  LoginForm">
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+            <div class="FormRow">
+                {{ form_label(form.name, null, {'label_attr' : {'class': 'FormRow--label  BasicLabel'}}) }}
+                {{ form_widget(form.name, {'attr' : {'class': 'FormRow--field  BasicField'}}) }}
+            </div>
+            {% if form.name.vars.errors|length %}
+                <div class="FormRow">
+                    <div class="GlobalErrors">
+                        <label class="GlobalError">{{ form_errors(form.name) }}</label>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="FormRow">
+                {{ form_label(form.lastname, null, {'label_attr' : {'class': 'FormRow--label  BasicLabel'}}) }}
+                {{ form_widget(form.lastname, {'attr' : {'class': 'FormRow--field  BasicField'}}) }}
+            </div>
+            {% if form.lastname.vars.errors|length %}
+                <div class="FormRow">
+                    <div class="GlobalErrors">
+                        <label class="GlobalError">{{ form_errors(form.lastname) }}</label>
+                    </div>
+                </div>
+            {% endif %}
+
+
+            <div class="FormRow">
+                {{ form_label(form.username, null, {'label_attr' : {'class': 'FormRow--label  BasicLabel'}}) }}
+                {{ form_widget(form.username, {'attr' : {'class': 'FormRow--field  BasicField'}}) }}
+            </div>
+            {% if form.username.vars.errors|length %}
+                <div class="FormRow">
+                    <div class="GlobalErrors">
+                        <label class="GlobalError">{{ form_errors(form.username) }}</label>
+                    </div>
+                </div>
+            {% endif %}
+
+
+            <div class="FormRow">
+                {{ form_label(form.password, null, {'label_attr' : {'class': 'FormRow--label  BasicLabel'}}) }}
+                {{ form_widget(form.password, {'attr' : {'class': 'FormRow--field  BasicField'}}) }}
+            </div>
+            {% if form.password.vars.errors|length %}
+                <div class="FormRow">
+                    <div class="GlobalErrors">
+                        <label class="GlobalError">{{ form_errors(form.password) }}</label>
+                    </div>
+                </div>
+            {% endif %}
+
+
+            <div class="FormRow">
+                {{ form_label(form.passRepeat, 'Repeat password', {'label_attr' : {'class': 'FormRow--label  BasicLabel'}}) }}
+                {{ form_widget(form.passRepeat, {'attr' : {'class': 'FormRow--field  BasicField'}}) }}
+            </div>
+            {% if form.passRepeat.vars.errors|length %}
+                <div class="FormRow">
+                    <div class="GlobalErrors">
+                        <label class="GlobalError">{{ form_errors(form.passRepeat) }}</label>
+                    </div>
+                </div>
+            {% endif %}
+
+
+            <div class="FormRow">
+                {{ form_widget(form.save, {'attr' : {'class': 'FormRow--SubmitButton  BasicSubmitButton  LoginButton'}}) }}
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
