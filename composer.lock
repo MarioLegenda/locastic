@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "928cf07615062470571573abc0843fa6",
+    "hash": "a4dabc46d0002baf65fa7b00a3f53c5b",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -885,6 +885,89 @@
             "time": "2014-12-12 05:04:05"
         },
         {
+            "name": "mario-legenda/php-strong-types",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MarioLegenda/php-strong-types.git",
+                "reference": "57abf7985326a4533b8cf3b610e1de1ccf529790"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MarioLegenda/php-strong-types/zipball/57abf7985326a4533b8cf3b610e1de1ccf529790",
+                "reference": "57abf7985326a4533b8cf3b610e1de1ccf529790",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "utility",
+            "autoload": {
+                "psr-0": {
+                    "StrongType\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mario Škrlec",
+                    "email": "whitepostmail@gmail.com",
+                    "homepage": "https://github.com/MarioLegenda/php-strong-types",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Provides strongly typed object of String, Integer, Float and ArrayType",
+            "homepage": "https://github.com/MarioLegenda",
+            "keywords": [
+                "php"
+            ],
+            "time": "2015-05-07 11:13:37"
+        },
+        {
+            "name": "mario-legenda/request-content-evaluator",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MarioLegenda/request-content-evaluator.git",
+                "reference": "3bd8ae43199e4beb0f46f5aa261737dd4aa15efc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MarioLegenda/request-content-evaluator/zipball/3bd8ae43199e4beb0f46f5aa261737dd4aa15efc",
+                "reference": "3bd8ae43199e4beb0f46f5aa261737dd4aa15efc",
+                "shasum": ""
+            },
+            "require": {
+                "mario-legenda/php-strong-types": "dev-master",
+                "php": ">=5.3.0"
+            },
+            "type": "utility",
+            "autoload": {
+                "psr-0": {
+                    "RCE\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mario Škrlec",
+                    "email": "whitepostmail@gmail.com",
+                    "homepage": "https://github.com/MarioLegenda"
+                }
+            ],
+            "homepage": "https://github.com/MarioLegenda/request-content-evaluator",
+            "keywords": [
+                "php"
+            ],
+            "time": "2015-05-07 12:29:07"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.13.1",
             "source": {
@@ -1667,7 +1750,10 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "mario-legenda/request-content-evaluator": 20,
+        "mario-legenda/php-strong-types": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

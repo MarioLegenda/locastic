@@ -7,7 +7,6 @@
 /app/phpunit.xml
 /bin/
 /composer.phar
-/vendor/
 /public_html/bundles/
 /public_html/bower_components/jquery/*
 !public_html/bower_components/jquery/dist

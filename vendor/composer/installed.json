@@ -1706,5 +1706,92 @@
             }
         ],
         "description": "This bundle generates code for you"
+    },
+    {
+        "name": "mario-legenda/php-strong-types",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/MarioLegenda/php-strong-types.git",
+            "reference": "57abf7985326a4533b8cf3b610e1de1ccf529790"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/MarioLegenda/php-strong-types/zipball/57abf7985326a4533b8cf3b610e1de1ccf529790",
+            "reference": "57abf7985326a4533b8cf3b610e1de1ccf529790",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "time": "2015-05-07 11:13:37",
+        "type": "utility",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "StrongType\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Mario Škrlec",
+                "email": "whitepostmail@gmail.com",
+                "homepage": "https://github.com/MarioLegenda/php-strong-types",
+                "role": "Developer"
+            }
+        ],
+        "description": "Provides strongly typed object of String, Integer, Float and ArrayType",
+        "homepage": "https://github.com/MarioLegenda",
+        "keywords": [
+            "php"
+        ]
+    },
+    {
+        "name": "mario-legenda/request-content-evaluator",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/MarioLegenda/request-content-evaluator.git",
+            "reference": "3bd8ae43199e4beb0f46f5aa261737dd4aa15efc"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/MarioLegenda/request-content-evaluator/zipball/3bd8ae43199e4beb0f46f5aa261737dd4aa15efc",
+            "reference": "3bd8ae43199e4beb0f46f5aa261737dd4aa15efc",
+            "shasum": ""
+        },
+        "require": {
+            "mario-legenda/php-strong-types": "dev-master",
+            "php": ">=5.3.0"
+        },
+        "time": "2015-05-07 12:29:07",
+        "type": "utility",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "RCE\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Mario Škrlec",
+                "email": "whitepostmail@gmail.com",
+                "homepage": "https://github.com/MarioLegenda"
+            }
+        ],
+        "homepage": "https://github.com/MarioLegenda/request-content-evaluator",
+        "keywords": [
+            "php"
+        ]
     }
 ]
