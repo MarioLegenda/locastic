@@ -1,3 +1,3 @@
 locastic_public_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: LocasticPublicBundle:Default:index }
+    path:     /
+    defaults: { _controller: LocasticPublicBundle:Initial:init }
