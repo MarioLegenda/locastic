@@ -1,0 +1,4 @@
+services:
+#    locastic_public.example:
+#        class: Locastic\PublicBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
