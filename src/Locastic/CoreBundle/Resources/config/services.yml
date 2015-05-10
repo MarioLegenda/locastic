@@ -1,4 +1,16 @@
+parameters:
+    cache.file_paths:
+        - verification_hash:
+            - hashes.txt
+
 services:
+    file:
+        class: Locastic\CoreBundle\Tools\File
+
     user_repository:
         class: Locastic\CoreBundle\Repositories\UserRepository
         arguments: [@doctrine]
+
+    cache:
+        class: Locastic\CoreBundle\Tools\Cache
+        arguments: [%cache.file_paths%, @file]

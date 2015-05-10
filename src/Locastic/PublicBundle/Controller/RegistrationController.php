@@ -4,6 +4,7 @@ namespace Locastic\PublicBundle\Controller;
 
 use Locastic\CoreBundle\Entity\User;
 use Locastic\CoreBundle\Forms\UserType;
+use Locastic\CoreBundle\Tools\VerificationHash;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -20,6 +21,8 @@ class RegistrationController extends ContainerAware
         $userType = new UserType();
         $form = $this->container->get('form.factory')->create($userType, $user);
 
+        $cache = $this->container->get('cache');
+
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -27,8 +30,11 @@ class RegistrationController extends ContainerAware
 
             $existingUser = $userRepo->getUserByUsername($user->getUsername());
 
+            // checks if user exists
             if($existingUser === false) {
-                $userRepo->createUser($user);
+                // creates a user and user verification hash
+                $verificationHash = new VerificationHash($this->container->get('cache'));
+                $userRepo->createUser($user, $verificationHash);
             }
         }
 

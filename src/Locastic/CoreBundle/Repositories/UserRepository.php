@@ -4,6 +4,7 @@ namespace Locastic\CoreBundle\Repositories;
 
 
 use Locastic\CoreBundle\Entity\User;
+use Locastic\CoreBundle\Tools\VerificationHash;
 
 class UserRepository extends Repository
 {
@@ -24,7 +25,7 @@ class UserRepository extends Repository
         return $user;
     }
 
-    public function createUser(User $user) {
-
+    public function createUser(User $user, VerificationHash $verHash) {
+        $hash = $verHash->createHash()->getHash();
     }
 } 
