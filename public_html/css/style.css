@@ -1,0 +1,167 @@
+/** * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/) * http://cssreset.com */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+a {
+  text-decoration: none;
+  color: black; }
+
+.FormRow {
+  position: relative;
+  width: 100%;
+  float: left;
+  margin: 0 0 15px 0; }
+  .FormRow .GlobalErrors {
+    width: 90%;
+    float: left; }
+    .FormRow .GlobalErrors .GlobalError {
+      display: block;
+      width: 100%;
+      color: white;
+      font-size: 1.2em;
+      line-height: 1.2em;
+      margin: 0 0 10px 0;
+      padding: 5px 5px 5px 5px;
+      border: 1px solid #ff3c2b; }
+  .FormRow .FormRow--label {
+    width: 30%;
+    float: left; }
+  .FormRow .FormRow--field {
+    width: 50%;
+    float: left; }
+  .FormRow .FormRow--SubmitButton {
+    display: block;
+    width: 150px;
+    padding: 5px; }
+  .FormRow .BasicLabel {
+    color: white;
+    padding: 5px;
+    letter-spacing: 0.03em;
+    font-size: 1.2em; }
+  .FormRow .BasicField {
+    font-size: 1.2em;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.2);
+    font-family: 'Open Sans Condensed', sans-serif;
+    letter-spacing: 0.05em;
+    word-spacing: 0.1em;
+    color: white;
+    border: 1px solid white;
+    border-radius: 3px; }
+    .FormRow .BasicField:focus {
+      color: white;
+      border: 1px solid #2C84EE; }
+  .FormRow .BasicTextarea {
+    resize: none;
+    font-size: 1.2em;
+    height: 200px; }
+  .FormRow .BasicCheckbox {
+    width: 18px;
+    height: 18px;
+    float: right; }
+  .FormRow .BasicSelect {
+    width: 200px;
+    float: left;
+    padding: 2px;
+    font-family: "Open Sans Condensed", sans-serif;
+    font-size: 1.2em;
+    background-color: #303133;
+    border: 1px solid white;
+    border-radius: 2px;
+    color: white; }
+  .FormRow .BasicSubmitButton {
+    float: right;
+    font-family: 'Open Sans Condensed', cursive;
+    font-size: 1.2em;
+    color: white;
+    text-align: center;
+    background-color: transparent;
+    padding: 10px;
+    border: 1px solid white;
+    -webkit-transition: background-color 0.4s, border 0.4s;
+    -moz-transition: background-color 0.4s, border 0.4s;
+    -ms-transition: background-color 0.4s, border 0.4s;
+    -o-transition: background-color 0.4s, border 0.4s;
+    transition: background-color 0.4s, border 0.4s; }
+    .FormRow .BasicSubmitButton:hover {
+      background-color: #EC7063;
+      border: 1px solid #EC7063; }
+    .FormRow .BasicSubmitButton:active {
+      background-color: #EC7063;
+      border: 1px solid #EC7063; }
+  .FormRow .LeftAligned {
+    float: left; }
+  .FormRow .RightAligned {
+    float: right; }
+  .FormRow .ButtonSpacing {
+    margin: 10px 0 10px 0; }
+  .FormRow .BlueHighlight {
+    border: 1px solid #2C84EE; }
+  .FormRow .CheckboxSection {
+    width: 100%;
+    float: left;
+    padding: 5px;
+    margin: 0 0 5px 0; }
+  .FormRow .FormError {
+    position: absolute;
+    top: -2px;
+    right: 0;
+    left: 0;
+    width: 150px;
+    padding: 5px 5px 5px 5px;
+    text-align: center; }
+  .FormRow .BasicError {
+    width: 300px;
+    color: white;
+    left: 550px;
+    top: 4px;
+    font-size: 1.2em;
+    border: 1px solid #ff3c2b; }
+  .FormRow .Action {
+    width: 120px;
+    float: left;
+    text-align: right;
+    color: white;
+    font-size: 1.2em;
+    padding: 10px; }
+  .FormRow .ActionSubmitDirective {
+    width: 100%;
+    float: right; }
+
+.FormRowWrapper {
+  padding: 10px;
+  border: 1px solid white; }
+
+.FormSeparator {
+  width: 90%;
+  float: left;
+  padding: 5px 5px 5px 0;
+  margin: 15px 0 30px 0; }
+
+/*# sourceMappingURL=style.css.map */
