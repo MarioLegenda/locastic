@@ -1,0 +1,35 @@
+{% extends '::unAuthLayout.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    {% block header %} {{ include('::_partials/header.html.twig') }} {% endblock %}
+
+    <div class="Container">
+        <div class="FormPosition  LoginForm">
+            <form action="{{ path('login_check') }}" method="POST">
+                {% if error %}
+                    <div class="FormRow">
+                        <div class="GlobalErrors">
+                            <label class="GlobalError">Netočno korisničko ime ili lozinka</label>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="FormRow">
+                    <label for="username" class="FormRow--label  BasicLabel  LoginLabel">Korisničko ime:</label>
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" class="FormRow--field  BasicField  LoginField" />
+                </div>
+
+                <div class="FormRow">
+                    <label for="password" class="FormRow--label  BasicLabel  LoginLabel">Lozinka:</label>
+                    <input type="password" id="password" name="_password" class="FormRow--field  BasicField  LoginField"  />
+                </div>
+
+                <div class="FormRow">
+                    <input type="submit" name="LoginSubmit" class="FormRow--SubmitButton  BasicSubmitButton  LoginButton" value="Suit up">
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

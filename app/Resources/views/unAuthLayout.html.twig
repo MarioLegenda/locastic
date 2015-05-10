@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Locastic | {% block title %}{% endblock %}</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset("css/style.css") }}">
+    {% endblock %}
+</head>
+<body>
+    <div class="Global">
+        {% block content %}
+            {% block header %}{% endblock %}
+        {% endblock %}
+    </div>
+
+    {% block javascripts %}
+        <script src="{{ asset("bower_components/jquery/jquery.min.js") }}"></script>
+        <script src="{{ asset("bower_components/angular/angular.min.js") }}"></script>
+    {% endblock %}
+</body>
+</html>

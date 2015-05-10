@@ -1,3 +1,7 @@
+locastic_authorized:
+    resource: "@LocasticAuthorizedBundle/Resources/config/routing.yml"
+    prefix:   /
+
 locastic_core:
     resource: "@LocasticCoreBundle/Resources/config/routing.yml"
     prefix:   /
@@ -5,5 +9,15 @@ locastic_core:
 locastic_public:
     resource: "@LocasticPublicBundle/Resources/config/routing.yml"
     prefix:   /
+
+login:
+    path:     /login
+    defaults: { _controller: LocasticPublicBundle:Login:login }
+
+login_check:
+    path: /login_check
+
+logout:
+    path: /logout
 
 

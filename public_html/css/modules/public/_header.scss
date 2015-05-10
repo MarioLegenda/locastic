@@ -1,0 +1,22 @@
+.Header {
+  width:100%;
+  overflow:hidden;
+
+  background-color: $headerColor;
+
+  .Navigation {
+    .Link {
+      display:inline-block;
+      float:left;
+
+      color:white;
+      font-size:1.2em;
+
+      padding:10px;
+
+      &:hover {
+        background-color: $mainHoverColor;
+      }
+    }
+  }
+}

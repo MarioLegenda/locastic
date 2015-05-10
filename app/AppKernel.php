@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Locastic\PublicBundle\LocasticPublicBundle(),
             new Locastic\CoreBundle\LocasticCoreBundle(),
+            new Locastic\AuthorizedBundle\LocasticAuthorizedBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
