@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="locastic.app">
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Locastic{% endblock %}</title>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+        {{ include('_restPartials/managment.html.twig') }}
+        {{ include('_restPartials/listHandler.html.twig') }}
 
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset("css/style.css") }}">
@@ -11,12 +14,16 @@
     </head>
     <body>
         <div class="Global">
-
+            {% block content %}{% endblock %}
         </div>
 
         {% block javascripts %}
             <script src="{{ asset("bower_components/jquery/jquery.min.js") }}"></script>
             <script src="{{ asset("bower_components/angular/angular.min.js") }}"></script>
+            <script src="{{ asset("js/directives.js") }}"></script>
+            <script src="{{ asset("js/helpers.js") }}"></script>
+            <script src="{{ asset("js/rest.js") }}"></script>
+            <script src="{{ asset("js/app.js") }}"></script>
         {% endblock %}
     </body>
 </html>

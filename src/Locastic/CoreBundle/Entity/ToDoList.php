@@ -30,6 +30,11 @@ class ToDoList
     private $listTitle;
 
     /**
+     * @ORM\Column(type="datetime", nullable=false, name="list_created")
+     */
+    private $listCreated;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Locastic\CoreBundle\Entity\User", inversedBy="user")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id")
      **/
@@ -62,6 +67,14 @@ class ToDoList
 
     public function getListTitle() {
         return $this->listTitle;
+    }
+
+    public function setListCreated(\DateTime $datetime) {
+        $this->listCreated = $datetime;
+    }
+
+    public function getListCreated() {
+        return $this->listCreated;
     }
 
     public function setUser(User $user) {
