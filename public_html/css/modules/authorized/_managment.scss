@@ -21,6 +21,7 @@
     }
   }
 
+  /* Generic button */
   .Button {
     display:inline-block;
     float:right;
@@ -39,6 +40,7 @@
     }
   }
 
+  /* list creating from  */
   .ListCreation {
     width:100%;
     float:left;
@@ -46,6 +48,51 @@
 
     .BasicSubmitButton {
       margin-right:300px;
+    }
+  }
+
+  /* todo listing */
+  .ListHandler {
+    width:100%;
+    float:left;
+
+    margin:50px 0 0 0;
+
+    .Row {
+      width:100%;
+      float:left;
+
+      padding:10px;
+      margin-bottom:5px;
+
+      border:1px solid white;
+    }
+  }
+}
+
+/*
+
+Specific containers and directives like...
+
+- list row
+- task row
+
+*/
+
+.ListRow {
+
+  .RowInfo {
+    display:block;
+    width:25%;
+    float:left;
+    z-index:-1;
+
+    font-size:1.2em;
+    text-align: center;
+    color:white;
+
+    &:hover {
+      cursor: pointer;
     }
   }
 }

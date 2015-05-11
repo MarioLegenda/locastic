@@ -232,7 +232,10 @@ body {
         background-color: #EC7063; }
 
 .Managment {
-  margin: 100px 0 0 0; }
+  margin: 100px 0 0 0;
+  /* Generic button */
+  /* list creating from  */
+  /* todo listing */ }
   .Managment .ListingManager {
     padding: 10px; }
   .Managment .Sorting {
@@ -263,5 +266,34 @@ body {
     margin: 50px 0 0 0; }
     .Managment .ListCreation .BasicSubmitButton {
       margin-right: 300px; }
+  .Managment .ListHandler {
+    width: 100%;
+    float: left;
+    margin: 50px 0 0 0; }
+    .Managment .ListHandler .Row {
+      width: 100%;
+      float: left;
+      padding: 10px;
+      margin-bottom: 5px;
+      border: 1px solid white; }
+
+/*
+
+Specific containers and directives like...
+
+- list row
+- task row
+
+*/
+.ListRow .RowInfo {
+  display: block;
+  width: 25%;
+  float: left;
+  z-index: -1;
+  font-size: 1.2em;
+  text-align: center;
+  color: white; }
+  .ListRow .RowInfo:hover {
+    cursor: pointer; }
 
 /*# sourceMappingURL=style.css.map */

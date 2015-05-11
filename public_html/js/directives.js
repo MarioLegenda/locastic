@@ -1,5 +1,5 @@
 angular.module('locastic.directives', [])
-    .directive('managment', [function () {
+    .directive('managment', ['List', function (List) {
         return {
             restrict: 'E',
             replace: true,
@@ -15,8 +15,17 @@ angular.module('locastic.directives', [])
 
                         $scope.dom.addList = !$scope.dom.addList;
                         return false;
+                    },
+
+                    // function called when sorting lists
+                    sort: function(type) {
+                        $scope.$broadcast('managment.sort_by_' + type, {});
                     }
-                }
+                };
+
+                $scope.$on('dom.start_listing', function() {
+                    console.log('works');
+                })
             },
             link: function ($scope, elem, attrs) {
 
@@ -66,16 +75,77 @@ angular.module('locastic.directives', [])
             }
         }
     }])
-    .directive('listHandler', [function() {
+    .directive('listing', ['List', function(List) {
         return {
             restrict: 'E',
             replace: true,
+            scope: {},
             templateUrl: 'listHandler.html',
             controller: function($scope) {
+                $scope.dom = {
+                    listing: false
+                };
 
+                $scope.directiveData = {
+                    listing: [],
+                    /*
+                    * if listingOrder.date == true then 'DESC' else 'ASC'
+                    * */
+                    listingOrder: {
+                        date: true,
+                        name: false,
+                        makeOrder: function(type) {
+                            var order = (this[type] === true) ? 'ASC' : 'DESC';
+                            this[type] = !this[type];
+
+                            return order;
+                        }
+                    }
+                };
+
+                var promise = List.getLists({
+                    type: 'date',
+                    order: 'DESC'
+                });
+
+                promise.then(function(data) {
+                    $scope.directiveData.listing = data.data.lists;
+                    $scope.dom.listing = true;
+                });
+
+                $scope.$on('managment.sort_by_date', function() {
+                    var promise = List.getLists({
+                        type: 'date',
+                        order: $scope.directiveData.listingOrder.makeOrder('date')
+                    });
+
+                    promise.then(function(data) {
+                        $scope.directiveData.listing = data.data.lists;
+                    });
+                });
+
+                $scope.$on('managment.sort_by_name', function() {
+                    var promise = List.getLists({
+                        type: 'name',
+                        order: $scope.directiveData.listingOrder.makeOrder('name')
+                    });
+
+                    promise.then(function(data) {
+                        $scope.directiveData.listing = data.data.lists;
+                    });
+                });
+            }
+        }
+    }])
+    .directive('listRow', [function() {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                listItem: '=listItem'
             },
-            link: function($scope, elem, attrs) {
-
+            templateUrl: 'listRow.html',
+            controller: function($scope) {
             }
         }
     }]);

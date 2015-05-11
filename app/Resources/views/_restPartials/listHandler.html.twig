@@ -1,5 +1,5 @@
 <script type="text/ng-template" id="listHandler.html">
     <div class="ListHandler">
-
+        <list-row ng-if="dom.listing == true" ng-repeat="item in directiveData.listing" list-item="item"></list-row>
     </div>
 </script>

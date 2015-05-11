@@ -1,4 +1,8 @@
 services:
-#    locastic_authorized.example:
-#        class: Locastic\AuthorizedBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    list_repository:
+        class: Locastic\CoreBundle\Repositories\ListRepository
+        arguments: [@doctrine]
+
+    order_repository:
+        class: Locastic\CoreBundle\Repositories\OrderRepository
+        arguments: [@doctrine]

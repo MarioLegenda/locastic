@@ -4,8 +4,8 @@
             <div class="Sorting">
                 <p class="SortingTitle">Sort by</p>
 
-                <button class="Button">Title</button>
-                <button class="Button">Date created</button>
+                <button class="Button" ng-click="managment.sort('name')">Name</button>
+                <button class="Button" ng-click="managment.sort('date')">Date created</button>
             </div>
 
             <div class="Creation">
@@ -14,5 +14,7 @@
         </div>
 
         <add-list ng-if="dom.addList == true"></add-list>
+
+        <listing></listing>
     </div>
 </script>

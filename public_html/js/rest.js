@@ -9,6 +9,14 @@ angular.module('locastic.rest', [])
                         name: data.name
                     }
                 });
+            };
+
+            this.getLists = function(data) {
+                return $http({
+                    method: 'POST',
+                    url: Path.namespace('list.getLists').construct(),
+                    data: data
+                });
             }
         }
 

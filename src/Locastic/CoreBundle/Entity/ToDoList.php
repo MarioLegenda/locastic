@@ -74,7 +74,7 @@ class ToDoList
     }
 
     public function getListCreated() {
-        return $this->listCreated;
+        return $this->listCreated->format('d.m.Y');
     }
 
     public function setUser(User $user) {
