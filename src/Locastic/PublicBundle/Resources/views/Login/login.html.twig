@@ -7,11 +7,18 @@
 
     <div class="Container">
         <div class="FormPosition  LoginForm">
+            {% if verificationNotice != null %}
+                <div class="FormRow">
+                    <div class="GlobalErrors">
+                        <label class="GlobalError">{{ verificationNotice }}</label>
+                    </div>
+                </div>
+            {% endif %}
             <form action="{{ path('login_check') }}" method="POST">
                 {% if error %}
                     <div class="FormRow">
                         <div class="GlobalErrors">
-                            <label class="GlobalError">Netočno korisničko ime ili lozinka</label>
+                            <label class="GlobalError">Incorrect username/password or not verified. If you are already registered, check your email and verify your registration</label>
                         </div>
                     </div>
                 {% endif %}

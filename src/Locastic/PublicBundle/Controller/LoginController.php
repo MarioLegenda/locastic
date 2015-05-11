@@ -7,17 +7,13 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class LoginController extends ContainerAware
 {
     public function loginAction() {
-        $securityContext = $this->container->get('security.context');
-        if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
-            $router = $this->container->get('router');
-
-            return new RedirectResponse($router->generate('locastic_dashboard'));
-        }
+        $templating = $this->container->get('templating');
 
         /*$options = [
             'cost' => 11,
@@ -30,8 +26,7 @@ die();*/
         $request = $this->container->get('request');
 
         $session = $request->getSession();
-        $templating = $this->container->get('templating');
-        // get the login error if there is one
+
         if ($request->attributes->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
             $error = $request->attributes->get(
                 SecurityContextInterface::AUTHENTICATION_ERROR
@@ -43,15 +38,46 @@ die();*/
             $error = '';
         }
 
-        // last username entered by the user
         $lastUsername = (null === $session) ? '' : $session->get(SecurityContextInterface::LAST_USERNAME);
 
+        $flashBag = $this->container->get('session')->getFlashBag();
         return $templating->renderResponse(
             'LocasticPublicBundle:Login:login.html.twig',
             array(
                 'last_username' => $lastUsername,
                 'error'         => $error,
+                'verificationNotice' => ($flashBag->has('verification_notice')) ? $flashBag->get('verification_notice')[0] : null
             )
         );
+    }
+
+    public function emailVerificationAction($hash) {
+        $this->container->get('doctrine');
+        $userRepo = $this->container->get('user_repository');
+
+        /*
+         * Check if the user with $hash exists
+         * */
+        $user = $userRepo->verifyUser($hash);
+        $router = $this->container->get('router');
+
+        /*
+         * If the user does not exist, redirect to login page with error message
+         * */
+        $flashBag = $this->container->get('session')->getFlashBag();
+        if( $user === false) {
+            $flashBag->add('verification_notice', 'Before you can login, you have to verify your registration. Check the provided email');
+
+            return new RedirectResponse($router->generate('login'));
+        }
+
+        /*$token = new UsernamePasswordToken($user, null, 'secured_area', $user->getRoles());
+        $this->container->get('security.context')->setToken($token);
+        $this->container->get('session')->set('secured_area', serialize($token));*/
+
+
+        /* Account has been verified and user is prompted with the message to login */
+        $flashBag->add('verification_notice', 'Your account has been verified. Please, login with your username and password');
+        return new RedirectResponse($router->generate('login'));
     }
 } 

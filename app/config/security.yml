@@ -1,14 +1,14 @@
 security:
     encoders:
-        App\ToolsBundle\Entity\User:
+        Locastic\CoreBundle\Entity\User:
             algorithm: bcrypt
 
     role_hierarchy:
         ROLE_USER:   [ROLE_USER, ROLE_ALLOW_TO_SWITCH]
 
     providers:
-        users:
-            entity: { class: LocasticCoreBundle:User, property: username }
+        custom_provider:
+            id: custom_user_provider
 
     firewalls:
         dev:
@@ -32,4 +32,5 @@ security:
         - { path: ^/unauthorized$ , roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login$ , roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/registration$ , roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/verification/\w+$ , roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, role: [ROLE_USER] }

@@ -2,6 +2,7 @@
 
 namespace Locastic\CoreBundle\Tools;
 
+use Locastic\CoreBundle\Tools\Contracts\CacheInterface;
 use Locastic\CoreBundle\Tools\Exceptions\VerificationHashException;
 
 class VerificationHash
@@ -10,7 +11,7 @@ class VerificationHash
     private $hash;
     private $cacheName = 'verification_hash';
 
-    public function __construct(Cache $cache) {
+    public function __construct(CacheInterface $cache) {
         $this->cache = $cache;
 
         if($this->cache->hasCache($this->cacheName) === false) {
@@ -28,6 +29,8 @@ class VerificationHash
         if($this->hashExists($hash) === true) {
             $this->createHash();
         }
+
+        $this->cache->writeValue($hash);
 
         $this->hash = $hash;
 

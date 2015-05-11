@@ -1,4 +1,6 @@
 services:
-#    locastic_public.example:
-#        class: Locastic\PublicBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    listener.is_authenticated_service:
+        class: Locastic\PublicBundle\Listeners\AuthenticationListener
+        arguments: [ @service_container ]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

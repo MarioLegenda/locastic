@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@LocasticCoreBundle/Resources/config/services.yml" }
+    - { resource: "@LocasticPublicBundle/Resources/config/services.yml" }
 
 framework:
     #esi:             ~

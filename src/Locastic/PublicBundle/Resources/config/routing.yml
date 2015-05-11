@@ -1,7 +1,12 @@
 locastic_public_unauthorized:
     path:     /unauthorized
     defaults: { _controller: LocasticPublicBundle:Public:unauthorized }
+    methods: [GET]
 
 locastic_public_registration:
     path:     /registration
     defaults: { _controller: LocasticPublicBundle:Registration:registration }
+
+locastic_public_verification:
+    path: /verification/{hash}
+    defaults: { _controller: LocasticPublicBundle:Login:emailVerification }

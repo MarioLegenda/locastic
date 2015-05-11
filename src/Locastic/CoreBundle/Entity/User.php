@@ -31,7 +31,6 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(max = 4096)
      * @Assert\NotBlank(message = "Password has to be provided")
      * @Assert\Length(
      *      min = 8,

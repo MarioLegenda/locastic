@@ -9,6 +9,14 @@
         <div class="FormPosition  LoginForm">
             {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 
+            {% if user_exists is defined %}
+                <div class="FormRow">
+                    <div class="GlobalErrors">
+                        <label class="GlobalError">User with username {{ user_exists }} already exists</label>
+                    </div>
+                </div>
+            {% endif %}
+
             <div class="FormRow">
                 {{ form_label(form.name, null, {'label_attr' : {'class': 'FormRow--label  BasicLabel'}}) }}
                 {{ form_widget(form.name, {'attr' : {'class': 'FormRow--field  BasicField'}}) }}
