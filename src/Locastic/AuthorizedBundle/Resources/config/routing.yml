@@ -4,6 +4,6 @@ locastic_dashboard:
     methods: [GET]
 
 locastic_getLists:
-    path: /
-    defaults: { _controller: LocasticAuthorizedBundle:Dashboard:getLists }
+    path: /list-managment/add-list
+    defaults: { _controller: LocasticAuthorizedBundle:Rest:addList }
     methods: [POST]

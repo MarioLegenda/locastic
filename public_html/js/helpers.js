@@ -8,7 +8,7 @@ angular.module('locastic.helpers', [])
 
             var namespaces = {
                 list: {
-
+                    addList: 'list-managment/add-list'
                 }
             };
 

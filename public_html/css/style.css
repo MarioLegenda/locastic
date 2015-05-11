@@ -231,4 +231,37 @@ body {
       .PublicUnauthorized .Public__Links .Links__Link:hover {
         background-color: #EC7063; }
 
+.Managment {
+  margin: 100px 0 0 0; }
+  .Managment .ListingManager {
+    padding: 10px; }
+  .Managment .Sorting {
+    width: 30%;
+    float: left; }
+    .Managment .Sorting .SortingTitle {
+      width: 25%;
+      float: left;
+      color: white;
+      font-size: 1.2em;
+      padding: 5px; }
+  .Managment .Button {
+    display: inline-block;
+    float: right;
+    color: white;
+    border: 1px solid white;
+    text-align: center;
+    background-color: transparent;
+    font-family: "Open Sans Condensed", sans-serif;
+    font-size: 1.2em;
+    margin-right: 2px; }
+    .Managment .Button:hover {
+      cursor: pointer;
+      background-color: #EC7063; }
+  .Managment .ListCreation {
+    width: 100%;
+    float: left;
+    margin: 50px 0 0 0; }
+    .Managment .ListCreation .BasicSubmitButton {
+      margin-right: 300px; }
+
 /*# sourceMappingURL=style.css.map */

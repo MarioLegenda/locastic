@@ -1,0 +1,51 @@
+.Managment {
+  margin:100px 0 0 0;
+
+  .ListingManager {
+
+    padding:10px;
+  }
+
+  .Sorting {
+    width:30%;
+    float:left;
+
+    .SortingTitle {
+      width:25%;
+      float:left;
+
+      color:white;
+      font-size:1.2em;
+
+      padding:5px;
+    }
+  }
+
+  .Button {
+    display:inline-block;
+    float:right;
+    color:white;
+    border:1px solid white;
+    text-align: center;
+    background-color: transparent;
+    font-family: "Open Sans Condensed", sans-serif;
+    font-size:1.2em;
+
+    margin-right:2px;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $mainHoverColor;
+    }
+  }
+
+  .ListCreation {
+    width:100%;
+    float:left;
+    margin: 50px 0 0 0;
+
+    .BasicSubmitButton {
+      margin-right:300px;
+    }
+  }
+}

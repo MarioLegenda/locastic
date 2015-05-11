@@ -25,9 +25,9 @@ class ToDoList
     private $user_id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false, name="list_name")
      */
-    private $listTitle;
+    private $listName;
 
     /**
      * @ORM\Column(type="datetime", nullable=false, name="list_created")
@@ -61,12 +61,12 @@ class ToDoList
         return $this->user_id;
     }
 
-    public function setListTitle($title) {
-        $this->listTitle = $title;
+    public function setListTitle($name) {
+        $this->listName = $name;
     }
 
-    public function getListTitle() {
-        return $this->listTitle;
+    public function getListName() {
+        return $this->listName;
     }
 
     public function setListCreated(\DateTime $datetime) {
