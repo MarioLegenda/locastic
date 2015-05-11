@@ -23,6 +23,7 @@ class AuthenticationListener
         $invalidControllers = array(
             'Locastic\PublicBundle\Controller\LoginController::loginAction',
             'Locastic\PublicBundle\Controller\RegistrationController::registrationAction',
+            'Locastic\PublicBundle\Controller\PublicController::unauthorizedAction'
         );
 
         if(in_array($controller, $invalidControllers) === true) {

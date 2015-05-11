@@ -1,1 +1,16 @@
-{% extends "::layout.html.twig" %}
+{% extends "::unAuthLayout.html.twig" %}
+
+{% block content %}
+    {% block header %} {{ include('::_partials/header.html.twig') }} {% endblock %}
+
+    <div class="Container">
+        <div class="Public  PublicUnauthorized">
+            <h1 class="Public__Title">TASK MANAGER</h1>
+
+            <div class="Public__Links">
+                <a href="{{ path('locastic_public_registration') }}" class="Links__Link">Register</a>
+                <a href="{{ path('login') }}" class="Links__Link">Login</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

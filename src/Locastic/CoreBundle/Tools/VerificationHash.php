@@ -23,6 +23,7 @@ class VerificationHash
         return $this->cache->valueExistsInCache($this->cacheName, $hash);
     }
 
+    /* Recursive cache creation */
     public function createHash() {
         $hash = sha1(rand(100000, 1000000));
 

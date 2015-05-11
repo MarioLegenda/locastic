@@ -208,4 +208,27 @@ body {
 .FormRow .LoginButton {
   margin-right: 160px; }
 
+.PublicUnauthorized {
+  margin: 100px 0 0 0; }
+  .PublicUnauthorized .Public__Title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 8em;
+    color: white;
+    font-weight: 700;
+    text-align: center; }
+  .PublicUnauthorized .Public__Links {
+    width: 50%;
+    margin: 100px auto;
+    overflow: hidden; }
+    .PublicUnauthorized .Public__Links .Links__Link {
+      width: 200px;
+      float: left;
+      display: block;
+      font-size: 3em;
+      color: white;
+      text-align: center;
+      padding: 10px; }
+      .PublicUnauthorized .Public__Links .Links__Link:hover {
+        background-color: #EC7063; }
+
 /*# sourceMappingURL=style.css.map */
