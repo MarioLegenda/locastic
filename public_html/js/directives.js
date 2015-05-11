@@ -23,9 +23,12 @@ angular.module('locastic.directives', [])
                     }
                 };
 
-                $scope.$on('dom.start_listing', function() {
-                    console.log('works');
-                })
+                // proxy between addList directive and listing directive. Not the best solution but keeps scopes separate
+                $scope.$on('action.proxy.refresh_list', function() {
+                    $scope.$broadcast('action.refresh_list', {});
+                });
+
+
             },
             link: function ($scope, elem, attrs) {
 
@@ -55,11 +58,11 @@ angular.module('locastic.directives', [])
                             });
 
                             promise.then(function() {
-
+                                $scope.$emit('action.proxy.refresh_list', {});
                             }, function(data) {
                                 $scope.list.errors.error = true;
                                 $scope.list.errors.messages.push(data.data);
-                            })
+                            });
                         }
                         else if($scope.list.name == '') {
                             $scope.list.errors.error = true;
@@ -128,6 +131,17 @@ angular.module('locastic.directives', [])
                     var promise = List.getLists({
                         type: 'name',
                         order: $scope.directiveData.listingOrder.makeOrder('name')
+                    });
+
+                    promise.then(function(data) {
+                        $scope.directiveData.listing = data.data.lists;
+                    });
+                });
+
+                $scope.$on('action.refresh_list', function() {
+                    var promise = List.getLists({
+                        type: 'date',
+                        order: 'DESC'
                     });
 
                     promise.then(function(data) {
