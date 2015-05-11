@@ -93,6 +93,11 @@ class User implements UserInterface, \Serializable
      **/
     private $roles;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Locastic\CoreBundle\Entity\ToDoList", mappedBy="user")
+     **/
+    private $toDoList;
+
     public function __construct() {
         $this->logged = new \DateTime();
         $this->roles = new ArrayCollection();

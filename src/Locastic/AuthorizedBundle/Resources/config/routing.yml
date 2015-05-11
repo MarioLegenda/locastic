@@ -1,3 +1,4 @@
 locastic_dashboard:
     path:     /
     defaults: { _controller: LocasticAuthorizedBundle:Dashboard:dashboard }
+    methods: [GET]
