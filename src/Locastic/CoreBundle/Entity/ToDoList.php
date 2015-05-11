@@ -2,13 +2,13 @@
 
 namespace Locastic\CoreBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="to_do_list")
  */
-
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class ToDoList
 {
@@ -25,15 +25,20 @@ class ToDoList
     private $user_id;
 
     /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $listTitle;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Locastic\CoreBundle\Entity\User", inversedBy="roles")
+     * @ORM\ManyToOne(targetEntity="Locastic\CoreBundle\Entity\User", inversedBy="user")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id")
      **/
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Locastic\CoreBundle\Entity\Task", mappedBy="toDoList")
+     **/
+    private $task;
 
     public function setListId($listId) {
         $this->listId = $listId;
@@ -65,5 +70,13 @@ class ToDoList
 
     public function getUser() {
         return $this->user;
+    }
+
+    public function setTask(Task $task) {
+        $this->task = $task;
+    }
+
+    public function getTask() {
+        return $this->task;
     }
 } 
