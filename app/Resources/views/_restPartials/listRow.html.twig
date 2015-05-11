@@ -1,10 +1,10 @@
 <script type="text/ng-template" id="listRow.html">
     <div class="Row  ListRow">
-        <div class="Expandable">
-            <label class="RowInfo">{[{ listItem.listname }]}</label>
-            <label class="RowInfo">{[{ listItem.listcreated }]}</label>
-            <label class="RowInfo">Finished tasks: 0</label>
-            <label class="RowInfo">Pending tasks: 0</label>
-        </div>
+        <a class="Expandable" ng-click="directiveData.expand($event)">
+            <span class="RowInfo">{[{ listItem.listname }]}</span>
+            <span class="RowInfo">{[{ listItem.listcreated }]}</span>
+            <span class="RowInfo">Finished tasks: 0</span>
+            <span class="RowInfo">Pending tasks: 0</span>
+        </a>
     </div>
 </script>

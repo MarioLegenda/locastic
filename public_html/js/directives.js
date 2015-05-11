@@ -151,7 +151,7 @@ angular.module('locastic.directives', [])
             }
         }
     }])
-    .directive('listRow', [function() {
+    .directive('listRow', ['Toggle', function(Toggle) {
         return {
             restrict: 'E',
             replace: true,
@@ -160,6 +160,33 @@ angular.module('locastic.directives', [])
             },
             templateUrl: 'listRow.html',
             controller: function($scope) {
+                $scope.directiveData = {};
+
+                Toggle.create($scope.listItem.listname, {
+                    enter: function() {
+                        this.elem.css({
+                            height: '500px'
+                        });
+                    },
+                    exit: function() {
+                        this.elem.css({
+                            height: this.originalHeight + 'px'
+                        });
+                    }
+                });
+            },
+            link: function($scope, elem, attrs) {
+
+                var originalHeight = elem.innerHeight() + 3;
+                $scope.directiveData.expand = function($event) {
+                    $event.preventDefault();
+
+                    Toggle.toggle($scope.listItem.listname, {
+                        elem: elem,
+                        originalHeight: originalHeight
+                    });
+                    return false;
+                }
             }
         }
     }]);

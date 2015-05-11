@@ -59,4 +59,78 @@ angular.module('locastic.helpers', [])
         }
 
         return new Path();
+    }])
+    .factory('Toggle', [function() {
+        function Toggle() {
+            var faze = false, config = {},
+                valueIs = function (value, type) {
+                    if (({}).toString.call(value).match(/\s([a-zA-Z]+)/)[1].toLowerCase() == type) {
+                        return true;
+                    }
+
+                    return false;
+                },
+                hasEntered = false;
+
+            this.create = function(name, c) {
+                if( ! c.hasOwnProperty('enter')) {
+                    throw new Error('Toggle: Toggle should have a \'enter\' property');
+                }
+
+                if( ! c.hasOwnProperty('exit')) {
+                    throw new Error('Toggle: Toggle should have a \'exit\' property');
+                }
+
+                if( ! valueIs(c.enter, 'function') || ! valueIs(c.exit, 'function')) {
+                    throw new Error('Toggle: Toggle.enter and Toggle.exit should be functions');
+                }
+
+                config[name] = c;
+                config[name].faze = false;
+
+                return this;
+            };
+
+            this.toggle = function(name, context) {
+                if(config[name].faze === false) {
+                    if(typeof context !== 'undefined') {
+                        config[name].enter.call(context);
+                    }
+                    else {
+                        config[name].enter();
+                    }
+
+                    config[name].faze = true;
+                    config[name].hasEntered = true;
+                }
+                else if(config[name].faze === true) {
+                    if(typeof context !== 'undefined') {
+                        config[name].exit.call(context);
+                    }
+                    else {
+                        config[name].exit();
+                    }
+
+                    config[name].faze = false;
+                }
+            };
+
+            this.hasEntered = function(name) {
+                if( ! config[name].hasOwnProperty('hasEntered')) {
+                    return false;
+                }
+
+                return config[name].hasEntered;
+            };
+
+            this.isEntered = function() {
+                return faze;
+            };
+
+            this.isExited = function() {
+                return faze;
+            };
+        }
+
+        return new Toggle();
     }]);

@@ -273,7 +273,6 @@ body {
     .Managment .ListHandler .Row {
       width: 100%;
       float: left;
-      padding: 10px;
       margin-bottom: 5px;
       border: 1px solid white; }
 
@@ -293,7 +292,12 @@ Specific containers and directives like...
   font-size: 1.2em;
   text-align: center;
   color: white; }
-  .ListRow .RowInfo:hover {
-    cursor: pointer; }
+.ListRow .Expandable {
+  width: 100%;
+  float: left;
+  padding: 10px; }
+  .ListRow .Expandable:hover {
+    cursor: pointer;
+    background-color: #EC7063; }
 
 /*# sourceMappingURL=style.css.map */
