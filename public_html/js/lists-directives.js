@@ -69,61 +69,43 @@ angular.module('locastic.directives', [])
             controller: function($scope) {
                 $scope.directiveData = {
                     listing: [],
-                    restInterface: 'list',
                     recompile: false
                 };
-
-                $scope.$on('action.lists_listing', function($event, data) {
-                    $scope.directiveData.listing = data.listing;
-                });
 
                 $scope.$on('action.refresh_list', function($event, data) {
                     $scope.directiveData.listing = data.listing;
                 });
 
                 $scope.$on('action.change_interface', function($event, data) {
-                    $scope.directiveData.restInterface = data.restInterface;
-
-                    console.log('budala');
-
-                    $scope.directiveData.recompile = true;
-                    $timeout(function() {
-                        $scope.directiveData.recompile = false;
-                    }, 300);
+                    $scope.$broadcast('action.fetch_data', {
+                        interfaceType: data.interfaceType
+                    });
                 });
+
+                $timeout(function() {
+                    $scope.$broadcast('action.fetch_data', {
+                        interfaceType: 'list'
+                    });
+                }, 1000);
             }
         }
     }])
-    .directive('listHandler', ['RestProvider', function(RestProvider) {
+    .directive('listHandler', ['RestProvider', '$timeout', function(RestProvider, $timeout) {
         return {
             restrict: 'A',
             replace: false,
             controller: function($scope) {
-                var RestInterface = RestProvider.create($scope.directiveData.restInterface);
+                var RestInterface;
 
                 $scope.dom = {
-                    addList: false,
-                    lists: true,
-                    tasks: false,
-                    addTask: false
+                    lists: false,
+                    tasks: false
                 };
 
                 $scope.listHandler = {
-
+                    interfaceType: null,
                     selectedListId: null,
 
-                    addList: function($event) {
-                        $event.preventDefault();
-
-                        $scope.dom.addList = !$scope.dom.addList;
-                        return false;
-                    },
-                    addTask: function($event) {
-                        $event.preventDefault();
-                        $scope.dom.addTask = !$scope.dom.addTask;
-
-                        return false;
-                    },
                     listingOrder: {
                         date: true,
                         name: false,
@@ -148,31 +130,54 @@ angular.module('locastic.directives', [])
                     },
                     back: function($event) {
                         $event.preventDefault();
-                        $scope.dom.tasks = !$scope.dom.tasks;
-                        $scope.dom.lists = !$scope.dom.lists;
+                        $scope.listHandler.interfaceType = 'list';
+                        $scope.dom.tasks = false;
+                        $scope.dom.lists = true;
 
-                        $scope.dom.addList = false;
-                        $scope.dom.addTask = false;
+                        var promise = RestInterface.getItems({
+                            entity: $scope.listHandler.interfaceType,
+                            type: 'date',
+                            order: 'DESC'
+                        });
+
+                        promise.then(function(data) {
+                            $scope.directiveData.listing = data.data.lists;
+                        });
                         return false;
                     }
                 };
 
+                $scope.$on('action.fetch_data', function($event, data) {
+                    $scope.listHandler.interfaceType = data.interfaceType;
 
-                var promise = RestInterface.getItems({
-                    entity: $scope.directiveData.restInterface,
-                    type: 'date',
-                    order: 'DESC'
-                });
+                    RestInterface = RestProvider.create($scope.listHandler.interfaceType);
 
-                promise.then(function(data) {
-                    $scope.$emit('action.lists_listing', {
-                        listing: data.data.lists
+                    var promise = RestInterface.getItems({
+                        entity: $scope.listHandler.interfaceType,
+                        type: 'date',
+                        order: 'DESC'
+                    });
+
+                    promise.then(function(data) {
+                        $scope.directiveData.listing = data.data.lists;
+
+                        if($scope.listHandler.interfaceType === 'task') {
+                            $scope.dom.lists = false;
+
+                            $timeout(function() {
+                                $scope.dom.tasks = true;
+                            }, 500);
+                        }
+                        else {
+                            $scope.dom.lists = $scope.listHandler.interfaceType === 'list';
+                            $scope.dom.tasks = $scope.listHandler.interfaceType === 'task';
+                        }
                     });
                 });
 
                 $scope.$on('action.refresh_list', function() {
                     var promise = RestInterface.getItems({
-                        entity: $scope.directiveData.restInterface,
+                        entity: $scope.listHandler.interfaceType,
                         type: 'date',
                         order: 'DESC'
                     });
@@ -184,9 +189,6 @@ angular.module('locastic.directives', [])
 
                 $scope.$on('action.change_interface', function($event, data) {
                     $scope.listHandler.selectedListId = data.listId;
-                    /*$scope.dom.addList = false;
-                    $scope.dom.tasks = !$scope.dom.tasks;
-                    $scope.dom.lists = !$scope.dom.lists;*/
                 });
             }
         }
@@ -206,7 +208,7 @@ angular.module('locastic.directives', [])
 
                         $scope.$emit('action.change_interface', {
                             listId: $scope.listItem.listid,
-                            restInterface: 'task'
+                            interfaceType: 'task'
                         });
                         return false;
                     }

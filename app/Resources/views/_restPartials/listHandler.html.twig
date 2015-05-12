@@ -1,6 +1,6 @@
 <script type="text/ng-template" id="listHandler.html">
     <div class="ListHandler">
-        <div class="DirectiveWrapper" list-handler ng-if="directiveData.recompile == false">
+        <div class="DirectiveWrapper" list-handler>
             <div class="ListingManager" ng-if="dom.lists == true">
                 <div class="Sorting">
                     <p class="SortingTitle">Sort by</p>
@@ -31,14 +31,15 @@
                 </div>
             </div>
 
-            <add-list ng-if="dom.addList == true"></add-list>
-            <add-task ng-if="dom.addTask == true" list-id="{[{ listHandler.selectedListId }]}"></add-task>
+            <add-list ng-if="dom.lists == true"></add-list>
+            <add-task ng-if="dom.tasks == true" list-id="{[{ listHandler.selectedListId }]}"></add-task>
 
             <div class="Listing" ng-if="dom.lists == true">
                 <list-row ng-repeat="item in directiveData.listing" list-item="item"></list-row>
             </div>
 
             <div class="Tasks" ng-if="dom.tasks == true">
+                <task-row ng-repeat="item in directiveData.listing" task-item="item" list-id="{[{ listHandler.selectedListId }]}"></task-row>
             </div>
         </div>
     </div>

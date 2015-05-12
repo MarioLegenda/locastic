@@ -10,10 +10,14 @@ locastic_addList:
 
 
 locastic_getLists:
-    path: /list-managment/get-lists
-    defaults: { _controller: LocasticAuthorizedBundle:Rest:getLists }
+    path: /list-managment/get-items
+    defaults: { _controller: LocasticAuthorizedBundle:Rest:getItems }
     methods: [POST]
 
 locastic_addTask:
     path: /task-managment/add-task
     defaults: { _controller: LocasticAuthorizedBundle:Rest:addTask }
+
+locastic_getTasks:
+    path: /task-managment/get-task
+    defaults: { _controller: LocasticAuthorizedBundle:Rest:getItems }

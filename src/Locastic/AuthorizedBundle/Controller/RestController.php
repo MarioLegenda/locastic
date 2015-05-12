@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RestController extends ContainerAware
 {
-    public function getListsAction() {
+    public function getItemsAction() {
         $request = $this->container->get('request');
 
         $content = json_decode($request->getContent(), true);

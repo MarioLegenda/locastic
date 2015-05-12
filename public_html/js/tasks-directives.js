@@ -8,7 +8,6 @@ angular.module('locastic.directives')
             },
             templateUrl: 'newTaskForm.html',
             controller: function($scope) {
-                console.log($scope.listId);
                 var Task = RestProvider.create('task');
 
                 $scope.task = {
@@ -96,9 +95,12 @@ angular.module('locastic.directives')
         return {
             restrict: 'E',
             replace: true,
+            scope: {
+                listId: '@listId',
+                taskItem: '=taskItem'
+            },
             templateUrl: 'taskRow.html',
             controller: function($scope) {
-
             }
         }
     }]);

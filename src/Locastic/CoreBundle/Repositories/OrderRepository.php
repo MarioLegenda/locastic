@@ -62,9 +62,26 @@ class OrderRepository extends Repository
         $this->types['task']['date'] = function($order) {
             $qb = $this->manager->createQueryBuilder();
 
-            /*$tasks = $qb->select(array('t'))
+            $tasks = $qb->select(array('t'))
                 ->from('LocasticCoreBundle:Task', 't')
-                ->orderBy('t.')*/
+                ->orderBy('t.taskCreated', $order)
+                ->getQuery()
+                ->getResult();
+
+            $eta = new EntityToArray($tasks, array(
+                'getTaskTitle',
+                'getDeadline',
+                'getPriority',
+                'getTaskCreated'
+            ));
+
+            $tasksArray = $namesAsArray = $eta->config(array(
+                'methodName-keys' => true,
+                'multidimensional' => false,
+                'only-names' => true
+            ))->toArray();
+
+            return $tasksArray;
         };
     }
 
