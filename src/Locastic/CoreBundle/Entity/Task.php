@@ -4,6 +4,7 @@ namespace Locastic\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity
@@ -26,11 +27,16 @@ class Task
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false, name="task_title")
+     * @Assert\NotBlank(message = "List name has to be provided")
      */
     private $taskTitle;
 
     /**
      * @ORM\Column(type="string", length=1, options={"fixed" = true}, nullable=false, name="priority")
+     * @Assert\Length(
+     *      max = 1,
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $priority;
 
@@ -77,7 +83,7 @@ class Task
         return $this->deadline;
     }
 
-    public function setToDoList($list) {
+    public function setToDoList(ToDoList $list) {
         $this->toDoList = $list;
     }
 
@@ -91,5 +97,17 @@ class Task
 
     public function getListId() {
         return $this->listId;
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        if(new \DateTime() <= $this->getDeadline()) {
+            $context->buildViolation('You cannot select past dates as deadlines')
+                ->atPath('deadline')
+                ->addViolation();
+        }
     }
 } 

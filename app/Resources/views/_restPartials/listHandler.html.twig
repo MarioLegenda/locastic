@@ -32,7 +32,7 @@
             </div>
 
             <add-list ng-if="dom.addList == true"></add-list>
-            <add-task ng-if="dom.addTask == true"></add-task>
+            <add-task ng-if="dom.addTask == true" list-id="{[{ listHandler.selectedListId }]}"></add-task>
 
             <div class="Listing" ng-if="dom.lists == true">
                 <list-row ng-repeat="item in directiveData.listing" list-item="item"></list-row>

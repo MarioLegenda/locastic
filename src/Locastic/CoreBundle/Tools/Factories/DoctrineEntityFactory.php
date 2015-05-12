@@ -3,6 +3,7 @@
 namespace Locastic\CoreBundle\Tools\Factories;
 
 
+use Locastic\CoreBundle\Tools\Factories\EntityFactory\TaskFactory;
 use Locastic\CoreBundle\Tools\Factories\Exceptions\DoctrineFactoryException;
 use Locastic\CoreBundle\Tools\Factories\EntityFactory\ListFactory;
 
@@ -18,6 +19,10 @@ class DoctrineEntityFactory
     private function __construct() {
         $this->closures['List'] = function() {
             return new ListFactory();
+        };
+
+        $this->closures['Task'] = function() {
+            return new TaskFactory();
         };
     }
 

@@ -101,6 +101,9 @@ angular.module('locastic.directives', [])
                 };
 
                 $scope.listHandler = {
+
+                    selectedListId: null,
+
                     addList: function($event) {
                         $event.preventDefault();
 
@@ -168,7 +171,8 @@ angular.module('locastic.directives', [])
                     });
                 });
 
-                $scope.$on('action.change_listing', function() {
+                $scope.$on('action.change_listing', function($event, data) {
+                    $scope.listHandler.selectedListId = data.listId;
                     $scope.dom.addList = false;
                     $scope.dom.tasks = !$scope.dom.tasks;
                     $scope.dom.lists = !$scope.dom.lists;
@@ -189,7 +193,9 @@ angular.module('locastic.directives', [])
                     taskList: function($event) {
                         $event.preventDefault();
 
-                        $scope.$emit('action.change_listing', {})
+                        $scope.$emit('action.change_listing', {
+                            listId: $scope.listItem.listid
+                        });
                         return false;
                     }
                 }

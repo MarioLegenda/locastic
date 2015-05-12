@@ -6,3 +6,7 @@ services:
     order_repository:
         class: Locastic\CoreBundle\Repositories\OrderRepository
         arguments: [@doctrine]
+
+    task_repository:
+        class: Locastic\CoreBundle\Repositories\TaskRepository
+        arguments: [@doctrine]

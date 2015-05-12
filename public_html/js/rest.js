@@ -33,9 +33,7 @@ angular.module('locastic.rest', [])
                             return $http({
                                 method: 'POST',
                                 url: Path.namespace('task.addTask').construct(),
-                                data: {
-                                    name: data.name
-                                }
+                                data: data
                             });
                         }
                     }

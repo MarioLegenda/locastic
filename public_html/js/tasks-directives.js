@@ -3,11 +3,13 @@ angular.module('locastic.directives')
         return {
             restrict: 'E',
             replace: true,
+            scope: {
+                listId: '@listId'
+            },
             templateUrl: 'newTaskForm.html',
             controller: function($scope) {
+                console.log($scope.listId);
                 var Task = RestProvider.create('task');
-
-
 
                 $scope.task = {
                     form: FormHandler.init($scope, 'newTask'),
@@ -53,7 +55,28 @@ angular.module('locastic.directives')
                                 return;
                             }
 
+                            // removes previous errors if any
+                            $scope.task.errors.error = false;
 
+                            var date = {
+                                year: $scope.task.selected.year.value,
+                                month: $scope.task.selected.month.value,
+                                day: $scope.task.selected.day.value
+                            };
+
+                            var promise = Task.addItem({
+                                listId: $scope.listId,
+                                name: $scope.task.name,
+                                deadline: date,
+                                priority: $scope.task.selected.priority.id
+                            });
+
+                            promise.then(function() {
+
+                            }, function(data) {
+                                $scope.task.errors.error = true;
+                                $scope.task.errors.messages = data.data;
+                            })
                         }
 
                         return false;

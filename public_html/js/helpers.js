@@ -10,6 +10,9 @@ angular.module('locastic.helpers', [])
                 list: {
                     addList: 'list-managment/add-list',
                     getLists: 'list-managment/get-lists'
+                },
+                task: {
+                    addTask: 'task-managment/add-task'
                 }
             };
 
