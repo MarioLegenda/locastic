@@ -237,6 +237,9 @@ body {
   /* list creating from  */
   /* todo listing */ }
   .Managment .ListingManager {
+    width: 100%;
+    float: left;
+    margin: 0 0 25px 0;
     padding: 10px; }
   .Managment .Sorting {
     width: 30%;
@@ -263,7 +266,7 @@ body {
   .Managment .ListCreation {
     width: 100%;
     float: left;
-    margin: 50px 0 0 0; }
+    margin: 50px 0 50px 0; }
     .Managment .ListCreation .BasicSubmitButton {
       margin-right: 300px; }
   .Managment .ListHandler {

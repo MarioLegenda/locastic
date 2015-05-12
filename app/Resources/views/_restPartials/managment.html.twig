@@ -1,19 +1,6 @@
 <script type="text/ng-template" id="managment.html">
     <div class="Managment">
-        <div class="ListingManager">
-            <div class="Sorting">
-                <p class="SortingTitle">Sort by</p>
 
-                <button class="Button" ng-click="managment.sort('name')">Name</button>
-                <button class="Button" ng-click="managment.sort('date')">Date created</button>
-            </div>
-
-            <div class="Creation">
-                <button class="Button" ng-click="managment.addList($event)">New List</button>
-            </div>
-        </div>
-
-        <add-list ng-if="dom.addList == true"></add-list>
 
         <listing></listing>
     </div>

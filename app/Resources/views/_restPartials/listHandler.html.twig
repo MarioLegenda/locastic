@@ -1,5 +1,22 @@
 <script type="text/ng-template" id="listHandler.html">
     <div class="ListHandler">
-        <list-row ng-if="dom.listing == true" ng-repeat="item in directiveData.listing" list-item="item"></list-row>
+        <div class="DirectiveWrapper" list-handler>
+            <div class="ListingManager">
+                <div class="Sorting">
+                    <p class="SortingTitle">Sort by</p>
+
+                    <button class="Button" ng-click="listHandler.sort('name')">Name</button>
+                    <button class="Button" ng-click="listHandler.sort('date')">Date created</button>
+                </div>
+
+                <div class="Creation">
+                    <button class="Button" ng-click="listHandler.addList($event)">New List</button>
+                </div>
+            </div>
+
+            <add-list ng-if="dom.addList == true"></add-list>
+
+            <list-row ng-if="dom.listing == true" ng-repeat="item in directiveData.listing" list-item="item"></list-row>
+        </div>
     </div>
 </script>

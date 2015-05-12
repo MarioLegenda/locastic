@@ -2,7 +2,9 @@
   margin:100px 0 0 0;
 
   .ListingManager {
-
+    width:100%;
+    float:left;
+    margin:0 0 25px 0;
     padding:10px;
   }
 
@@ -44,7 +46,7 @@
   .ListCreation {
     width:100%;
     float:left;
-    margin: 50px 0 0 0;
+    margin: 50px 0 50px 0;
 
     .BasicSubmitButton {
       margin-right:300px;

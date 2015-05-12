@@ -3,34 +3,21 @@ angular.module('locastic.directives', [])
         return {
             restrict: 'E',
             replace: true,
+            scope: {},
             templateUrl: 'managment.html',
             controller: function ($scope) {
-                $scope.dom = {
-                    addList: false
-                };
-
-                $scope.managment = {
-                    addList: function($event) {
-                        $event.preventDefault();
-
-                        $scope.dom.addList = !$scope.dom.addList;
-                        return false;
-                    },
-
-                    // function called when sorting lists
-                    sort: function(type) {
-                        $scope.$broadcast('managment.sort_by_' + type, {});
+                var privateHandler = {
+                    makeLists: function() {
                     }
                 };
+
+                privateHandler.makeLists();
 
                 // proxy between addList directive and listing directive. Not the best solution but keeps scopes separate
                 $scope.$on('action.proxy.refresh_list', function() {
                     $scope.$broadcast('action.refresh_list', {});
                 });
 
-
-            },
-            link: function ($scope, elem, attrs) {
 
             }
         }
@@ -72,9 +59,6 @@ angular.module('locastic.directives', [])
                         return false;
                     }
                 }
-            },
-            link: function($scope, elem, attr) {
-
             }
         }
     }])
@@ -90,10 +74,36 @@ angular.module('locastic.directives', [])
                 };
 
                 $scope.directiveData = {
-                    listing: [],
-                    /*
-                    * if listingOrder.date == true then 'DESC' else 'ASC'
-                    * */
+                    listing: []
+                };
+
+                $scope.$on('action.lists_listing', function($event, data) {
+                    $scope.directiveData.listing = data.listing;
+                    $scope.dom.listing = true;
+                });
+
+                $scope.$on('action.refresh_list', function($event, data) {
+                    $scope.directiveData.listing = data.listing;
+                });
+            }
+        }
+    }])
+    .directive('listHandler', ['List', function(List) {
+        return {
+            restrict: 'A',
+            replace: false,
+            controller: function($scope) {
+                $scope.dom = {
+                    addList: false
+                };
+
+                $scope.listHandler = {
+                    addList: function($event) {
+                        $event.preventDefault();
+
+                        $scope.dom.addList = !$scope.dom.addList;
+                        return false;
+                    },
                     listingOrder: {
                         date: true,
                         name: false,
@@ -103,8 +113,20 @@ angular.module('locastic.directives', [])
 
                             return order;
                         }
+                    },
+                    // function called when sorting lists
+                    sort: function(type) {
+                        var promise = List.getLists({
+                            type: type,
+                            order: $scope.listHandler.listingOrder.makeOrder(type)
+                        });
+
+                        promise.then(function(data) {
+                            $scope.directiveData.listing = data.data.lists;
+                        });
                     }
                 };
+
 
                 var promise = List.getLists({
                     type: 'date',
@@ -112,29 +134,8 @@ angular.module('locastic.directives', [])
                 });
 
                 promise.then(function(data) {
-                    $scope.directiveData.listing = data.data.lists;
-                    $scope.dom.listing = true;
-                });
-
-                $scope.$on('managment.sort_by_date', function() {
-                    var promise = List.getLists({
-                        type: 'date',
-                        order: $scope.directiveData.listingOrder.makeOrder('date')
-                    });
-
-                    promise.then(function(data) {
-                        $scope.directiveData.listing = data.data.lists;
-                    });
-                });
-
-                $scope.$on('managment.sort_by_name', function() {
-                    var promise = List.getLists({
-                        type: 'name',
-                        order: $scope.directiveData.listingOrder.makeOrder('name')
-                    });
-
-                    promise.then(function(data) {
-                        $scope.directiveData.listing = data.data.lists;
+                    $scope.$emit('action.lists_listing', {
+                        listing: data.data.lists
                     });
                 });
 
@@ -147,11 +148,11 @@ angular.module('locastic.directives', [])
                     promise.then(function(data) {
                         $scope.directiveData.listing = data.data.lists;
                     });
-                });
+                })
             }
         }
     }])
-    .directive('listRow', ['Toggle', function(Toggle) {
+    .directive('listRow', ['Toggle', 'List', function(Toggle, List) {
         return {
             restrict: 'E',
             replace: true,
@@ -160,7 +161,8 @@ angular.module('locastic.directives', [])
             },
             templateUrl: 'listRow.html',
             controller: function($scope) {
-                $scope.directiveData = {};
+                $scope.directiveData = {
+                };
 
                 Toggle.create($scope.listItem.listname, {
                     enter: function() {
@@ -178,6 +180,8 @@ angular.module('locastic.directives', [])
             link: function($scope, elem, attrs) {
 
                 var originalHeight = elem.innerHeight() + 3;
+
+                // event fired when clicked on a particular list
                 $scope.directiveData.expand = function($event) {
                     $event.preventDefault();
 
