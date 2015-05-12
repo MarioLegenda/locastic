@@ -78,7 +78,8 @@ angular.module('locastic.directives', [])
 
                 $scope.$on('action.change_interface', function($event, data) {
                     $scope.$broadcast('action.fetch_data', {
-                        interfaceType: data.interfaceType
+                        interfaceType: data.interfaceType,
+                        listId: data.listId
                     });
                 });
 
@@ -152,9 +153,12 @@ angular.module('locastic.directives', [])
                 $scope.$on('action.fetch_data', function($event, data) {
                     $scope.listHandler.interfaceType = data.interfaceType;
 
+                    console.log(data);
+
                     RestInterface = RestProvider.create($scope.listHandler.interfaceType);
 
                     var promise = RestInterface.getItems({
+                        listId: data.listId,
                         entity: $scope.listHandler.interfaceType,
                         type: 'date',
                         order: 'DESC'
@@ -179,6 +183,7 @@ angular.module('locastic.directives', [])
 
                 $scope.$on('action.refresh_list', function() {
                     var promise = RestInterface.getItems({
+                        listId: $scope.listHandler.selectedListId,
                         entity: $scope.listHandler.interfaceType,
                         type: 'date',
                         order: 'DESC'
@@ -191,7 +196,7 @@ angular.module('locastic.directives', [])
 
                 $scope.$on('action.change_interface', function($event, data) {
                     $scope.listHandler.selectedListId = data.listId;
-                });
+                })
             }
         }
     }])

@@ -8,6 +8,7 @@ angular.module('locastic.directives')
             },
             templateUrl: 'newTaskForm.html',
             controller: function($scope) {
+
                 var Task = RestProvider.create('task');
 
                 $scope.task = {
@@ -101,8 +102,6 @@ angular.module('locastic.directives')
             },
             templateUrl: 'taskRow.html',
             controller: function($scope) {
-
-                console.log($scope.taskItem);
 
                 Toggle.create($scope.taskItem.taskid, {
                     enter: function() {

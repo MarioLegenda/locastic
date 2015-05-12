@@ -59,90 +59,32 @@ class OrderRepository extends Repository
             return $listsArray;
         };
 
-        $this->types['task']['name'] = function($order) {
+        $this->types['task']['name'] = function($order, $listId) {
             $qb = $this->manager->createQueryBuilder();
 
             $tasks = $qb->select(array('t'))
                 ->from('LocasticCoreBundle:Task', 't')
+                ->where($qb->expr()->eq('t.listId', ':list_id'))
                 ->orderBy('t.taskTitle', $order)
+                ->setParameter(':list_id', $listId)
                 ->getQuery()
                 ->getResult();
 
-            foreach($tasks as $task) {
-                $task->setPriority(null, function($priority) {
-                    switch($priority) {
-                        case '1': return 'Low';
-                        case '2': return 'Normal';
-                        case '3': return 'High';
-                    }
-                });
-
-                $status = $task->getIsFinished();
-
-                $task->setIsFinished(($status === 0) ? 'Pending' : 'Finished');
-            }
-
-            $eta = new EntityToArray($tasks, array(
-                'getTaskTitle',
-                'getIsFinished',
-                'getDeadline',
-                'getPriority',
-                'getTaskCreated',
-                'getTaskId'
-            ));
-
-            $tasksArray = $namesAsArray = $eta->config(array(
-                'methodName-keys' => true,
-                'multidimensional' => false,
-                'only-names' => true
-            ))->toArray();
-
-
-
-            return $tasksArray;
+            return $this->taskRefactoring($tasks);
         };
 
-        $this->types['task']['date'] = function($order) {
+        $this->types['task']['date'] = function($order, $listId) {
             $qb = $this->manager->createQueryBuilder();
 
             $tasks = $qb->select(array('t'))
                 ->from('LocasticCoreBundle:Task', 't')
+                ->where($qb->expr()->eq('t.listId', ':list_id'))
                 ->orderBy('t.taskCreated', $order)
+                ->setParameter(':list_id', $listId)
                 ->getQuery()
                 ->getResult();
 
-            foreach($tasks as $task) {
-                $task->setPriority(null, function($priority) {
-                    switch($priority) {
-                        case '1': return 'Low';
-                        case '2': return 'Normal';
-                        case '3': return 'High';
-                    }
-                });
-
-                $status = $task->getIsFinished();
-
-                $task->setIsFinished(($status === 0) ? 'Pending' : 'Finished');
-            }
-
-            $eta = new EntityToArray($tasks, array(
-                'getTaskTitle',
-                'getIsFinished',
-                'getDeadline',
-                'getPriority',
-                'getTaskCreated',
-                'getTaskId'
-            ));
-
-            $tasksArray = $namesAsArray = $eta->config(array(
-                'methodName-keys' => true,
-                'multidimensional' => false,
-                'only-names' => true
-            ))->toArray();
-
-
-
-            return $tasksArray;
+            return $this->taskRefactoring($tasks);
         };
 
         $this->types['task']['deadline'] = function($order) {
@@ -154,35 +96,7 @@ class OrderRepository extends Repository
                 ->getQuery()
                 ->getResult();
 
-            foreach($tasks as $task) {
-                $task->setPriority(null, function($priority) {
-                    switch($priority) {
-                        case '1': return 'Low';
-                        case '2': return 'Normal';
-                        case '3': return 'High';
-                    }
-                });
-
-                $status = $task->getIsFinished();
-
-                $task->setIsFinished(($status === 0) ? 'Pending' : 'Finished');
-            }
-
-            $eta = new EntityToArray($tasks, array(
-                'getTaskTitle',
-                'getIsFinished',
-                'getDeadline',
-                'getPriority',
-                'getTaskCreated',
-                'getTaskId'
-            ));
-
-            $tasksArray = $namesAsArray = $eta->config(array(
-                'methodName-keys' => true,
-                'multidimensional' => false,
-                'only-names' => true
-            ))->toArray();
-
+            $tasksArray = $this->taskRefactoring($tasks);
 
 
             return $tasksArray;
@@ -197,42 +111,49 @@ class OrderRepository extends Repository
                 ->getQuery()
                 ->getResult();
 
-            foreach($tasks as $task) {
-                $task->setPriority(null, function($priority) {
-                    switch($priority) {
-                        case '1': return 'Low';
-                        case '2': return 'Normal';
-                        case '3': return 'High';
-                    }
-                });
-
-                $status = $task->getIsFinished();
-
-                $task->setIsFinished(($status === 0) ? 'Pending' : 'Finished');
-            }
-
-            $eta = new EntityToArray($tasks, array(
-                'getTaskTitle',
-                'getIsFinished',
-                'getDeadline',
-                'getPriority',
-                'getTaskCreated',
-                'getTaskId'
-            ));
-
-            $tasksArray = $namesAsArray = $eta->config(array(
-                'methodName-keys' => true,
-                'multidimensional' => false,
-                'only-names' => true
-            ))->toArray();
-
-
-
-            return $tasksArray;
+            return $this->taskRefactoring($tasks);
         };
     }
 
-    public function getLists($order, $type, $entity) {
-        return $this->types[$entity][$type]->__invoke($order);
+    public function getLists(array $content) {
+        $order = $content['order'];
+        $type = $content['type'];
+        $entity = $content['entity'];
+        $listId = (array_key_exists('listId', $content) === true) ? $content['listId'] : null;
+
+        return $this->types[$entity][$type]->__invoke($order, $listId);
+    }
+
+    private function taskRefactoring($tasks) {
+        foreach($tasks as $task) {
+            $task->setPriority(null, function($priority) {
+                switch($priority) {
+                    case '1': return 'Low';
+                    case '2': return 'Normal';
+                    case '3': return 'High';
+                }
+            });
+
+            $status = $task->getIsFinished();
+
+            $task->setIsFinished(($status === 0) ? 'Pending' : 'Finished');
+        }
+
+        $eta = new EntityToArray($tasks, array(
+            'getTaskTitle',
+            'getIsFinished',
+            'getDeadline',
+            'getPriority',
+            'getTaskCreated',
+            'getTaskId'
+        ));
+
+        $tasksArray = $namesAsArray = $eta->config(array(
+            'methodName-keys' => true,
+            'multidimensional' => false,
+            'only-names' => true
+        ))->toArray();
+
+        return $tasksArray;
     }
 } 

@@ -13,6 +13,7 @@ use RCE\Filters\BeInteger;
 use RCE\Filters\BeString;
 use RCE\Filters\Exist;
 use RCE\Filters\Mutator;
+use RCE\Filters\OptionalExists;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -43,7 +44,7 @@ class RestController extends ContainerAware
 
         try {
             $listRepo = $this->container->get('order_repository');
-            $result = $listRepo->getLists($content['order'], $content['type'], $content['entity']);
+            $result = $listRepo->getLists($content);
         }
         catch(\Exception $e) {
             /*
