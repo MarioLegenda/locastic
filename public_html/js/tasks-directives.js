@@ -72,6 +72,11 @@ angular.module('locastic.directives')
                             });
 
                             promise.then(function() {
+                                $scope.task.selected.day = $scope.task.deadline.day[0];
+                                $scope.task.selected.month = $scope.task.deadline.month[0];
+                                $scope.task.selected.year = $scope.task.deadline.year[0];
+                                $scope.task.selected.priority = $scope.task.priority.values[1];
+
                                 $scope.$emit('action.proxy.refresh_list', {});
                             }, function(data) {
                                 $scope.task.errors.error = true;

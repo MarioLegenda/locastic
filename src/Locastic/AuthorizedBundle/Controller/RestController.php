@@ -32,9 +32,6 @@ class RestController extends ContainerAware
         );
 
         if( ! ContentEval::builder($builder)->isValid()) {
-            /*
-             * If the server receives invalid client data, it rejects the request
-             * */
             $response = new Response();
             $response->setContent('An error occurred. Please, refresh the page and try again');
             $response->setStatusCode(400, "BAD");
@@ -47,9 +44,6 @@ class RestController extends ContainerAware
             $result = $listRepo->getLists($content);
         }
         catch(\Exception $e) {
-            /*
-              List data could not be saved to the database. Send 400 response
-            * */
             $response = new Response();
             $response->setContent($e->getMessage());
             $response->setStatusCode(400, "BAD");
@@ -75,9 +69,6 @@ class RestController extends ContainerAware
         );
 
         if( ! ContentEval::builder($builder)->isValid()) {
-            /*
-             * If the server receives invalid client data, it rejects the request
-             * */
             $response = new Response();
             $response->setContent(json_encode('An error occurred. Please, refresh the page and try again'));
             $response->setStatusCode(400, "BAD");
@@ -108,9 +99,6 @@ class RestController extends ContainerAware
             $listRepo->createList($content, $user);
         }
         catch(\Exception $e) {
-            /*
-              List data could not be saved to the database. Send bad response
-            * */
             $response = new Response();
             $response->setContent(json_encode('An error occurred. Please, refresh the page and try again'));
             $response->setStatusCode(400, "BAD");
@@ -174,9 +162,42 @@ class RestController extends ContainerAware
             $taskRepo->addTask($task);
         }
         catch(\Exception $e) {
-            /*
-              List data could not be saved to the database. Send bad response
-            * */
+            $response = new Response();
+            $response->setContent($e->getMessage());
+            $response->setStatusCode(400, "BAD");
+
+            return $response;
+        }
+
+        $response = new Response();
+        $response->setStatusCode(200, "OK");
+
+        return $response;
+    }
+
+    public function deleteListAction() {
+        $request = $this->container->get('request');
+
+        $content = json_decode($request->getContent(), true);
+
+        $builder = new Builder($content);
+        $builder->build(
+            $builder->expr()->hasTo(new Exist('listId'), new BeInteger('listId'))
+        );
+
+        if( ! ContentEval::builder($builder)->isValid()) {
+            $response = new Response();
+            $response->setContent(json_encode('An error occurred. Please, refresh the page and try again'));
+            $response->setStatusCode(400, "BAD");
+
+            return $response;
+        }
+
+        try {
+            $listRepo = $this->container->get('list_repository');
+            $listRepo->deleteList($content);
+        }
+        catch(\Exception $e) {
             $response = new Response();
             $response->setContent($e->getMessage());
             $response->setStatusCode(400, "BAD");
@@ -216,9 +237,6 @@ class RestController extends ContainerAware
             $taskRepo->deleteTask($content);
         }
         catch(\Exception $e) {
-            /*
-              List data could not be saved to the database. Send bad response
-            * */
             $response = new Response();
             $response->setContent($e->getMessage());
             $response->setStatusCode(400, "BAD");

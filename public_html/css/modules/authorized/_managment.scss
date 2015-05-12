@@ -42,6 +42,17 @@
     }
   }
 
+  .RemoveList {
+    width:18%;
+    float:right;
+
+    text-align: center;
+    color:white;
+    font-size:1.2em;
+
+    padding:7px;
+  }
+
   .ButtonRight {
     float:left;
   }
@@ -95,7 +106,7 @@
     margin:50px 0 0 0;
 
     .Row {
-      width:100%;
+      width:80%;
       float:left;
 
       margin-bottom:5px;
@@ -119,8 +130,8 @@ Specific containers and directives like...
 */
 
 .ListRow {
-
   overflow:hidden;
+  position:relative;
 
   .RowInfo {
     display:block;

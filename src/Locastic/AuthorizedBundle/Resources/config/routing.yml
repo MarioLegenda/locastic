@@ -8,6 +8,10 @@ locastic_addList:
     defaults: { _controller: LocasticAuthorizedBundle:Rest:addList }
     methods: [POST]
 
+locastic_deleteList:
+    path: /list-managment/delete-list
+    defaults: { _controller: LocasticAuthorizedBundle:Rest:deleteList }
+    methods: [POST]
 
 locastic_getLists:
     path: /list-managment/get-items

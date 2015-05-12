@@ -263,6 +263,13 @@ body {
     .Managment .Button:hover {
       cursor: pointer;
       background-color: #EC7063; }
+  .Managment .RemoveList {
+    width: 18%;
+    float: right;
+    text-align: center;
+    color: white;
+    font-size: 1.2em;
+    padding: 7px; }
   .Managment .ButtonRight {
     float: left; }
   .Managment .ListCreation {
@@ -293,7 +300,7 @@ body {
     float: left;
     margin: 50px 0 0 0; }
     .Managment .ListHandler .Row {
-      width: 100%;
+      width: 80%;
       float: left;
       margin-bottom: 5px;
       border: 1px solid white; }
@@ -309,7 +316,8 @@ Specific containers and directives like...
 
 */
 .ListRow {
-  overflow: hidden; }
+  overflow: hidden;
+  position: relative; }
   .ListRow .RowInfo {
     display: block;
     width: 25%;

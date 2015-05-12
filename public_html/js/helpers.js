@@ -9,7 +9,8 @@ angular.module('locastic.helpers', [])
             var namespaces = {
                 list: {
                     addList: 'list-managment/add-list',
-                    getLists: 'list-managment/get-items'
+                    getLists: 'list-managment/get-items',
+                    deleteList: 'list-managment/delete-list'
                 },
                 task: {
                     addTask: 'task-managment/add-task',

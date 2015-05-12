@@ -42,6 +42,7 @@ angular.module('locastic.directives', [])
                             });
 
                             promise.then(function() {
+                                $scope.list.name = '';
                                 $scope.$emit('action.proxy.refresh_list', {});
                             }, function(data) {
                                 console.log(data);
@@ -200,7 +201,7 @@ angular.module('locastic.directives', [])
             }
         }
     }])
-    .directive('listRow', ['Toggle', function(Toggle) {
+    .directive('listRow', ['RestProvider', function(RestProvider) {
         return {
             restrict: 'E',
             replace: true,
@@ -217,6 +218,24 @@ angular.module('locastic.directives', [])
                             listId: $scope.listItem.listid,
                             interfaceType: 'task'
                         });
+                        return false;
+                    },
+                    removeList: function($event) {
+                        $event.preventDefault();
+
+                        var List, promise;
+
+                        List = RestProvider.create('list');
+
+                        promise = List.deleteItem({
+                            listId: $scope.listItem.listid
+                        });
+
+                        promise.then(function() {
+                            $scope.$emit('action.proxy.refresh_list', {});
+                        }, function() {
+                        });
+
                         return false;
                     }
                 }
