@@ -158,4 +158,98 @@ angular.module('locastic.helpers', [])
         }
 
         return new Range();
+    }]).factory('FormHandler', [function() {
+        var initForm = {};
+
+        initForm.init = function($scope, formName) {
+            return {
+                invalidSum: 0,
+                invalidForm: null,
+
+                notExists: function(prop) {
+                    return $scope[formName][prop].$error.required && $scope[formName][prop].$dirty;
+                },
+
+                notMinLength: function(prop) {
+                    return $scope[formName][prop].$error.minlength;
+                },
+
+                notEmail: function(prop) {
+                    return $scope[formName][prop].$error.email;
+                },
+
+                notEquals: function(prop1, prop2) {
+                    if($scope[formName][prop1].$viewValue !== $scope[formName][prop2].$viewValue) {
+                        this.invalidSum++;
+                        return true;
+                    }
+
+                    this.invalidSum = 0;
+                    this.invalidForm = true;
+                    return false;
+                },
+
+                enforceChecked: function(numOfCheckboxes, arrOfBoxes) {
+                    var checked = 0;
+                    for(var i = 0; i < arrOfBoxes.length; i++) {
+                        if($scope[formName][arrOfBoxes[i]].$modelValue == true) {
+                            checked++;
+                        }
+                    }
+
+                    return checked === 0;
+                },
+
+                hasArrayValues: function(arr) {
+                    var isArray = ({}).toString.call(arr).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+                    if(isArray === 'array') {
+                        return arr.length === 0;
+                    }
+
+                    return false;
+                },
+
+                notValidArray: function(arr, value) {
+                    for(var i = 0; i < arr.length; i++) {
+                        if(arr[i] === value) {
+                            return true;
+                        }
+                    }
+
+                    return false;
+                },
+
+                notEmpty: function(arr, value) {
+                    if(arr.length === 0) {
+                        this.invalidForm = true;
+                        return true;
+                    }
+
+                    this.invalidForm = false;
+                    return false;
+                },
+
+                regexValid: function(prop) {
+                    return $scope[formName][prop].$error.pattern;
+                },
+
+                isValidForm: function() {
+                    if($scope[formName].$valid && this.invalidForm === true) {
+                        return true;
+                    }
+
+                    if($scope[formName].$valid && this.invalidForm === null) {
+                        return true;
+                    }
+
+                    if($scope[formName].$valid && this.invalidForm === false) {
+                        return true;
+                    }
+
+                    return false;
+                }
+            };
+        };
+
+        return initForm;
     }]);

@@ -280,6 +280,9 @@ body {
     .Managment .ListCreation .TaskSelect {
       display: block;
       width: 100px; }
+    .Managment .ListCreation .TaskError {
+      top: 5px;
+      left: 450px; }
     .Managment .ListCreation .TaskSubmitButton {
       margin: 0;
       float: right; }

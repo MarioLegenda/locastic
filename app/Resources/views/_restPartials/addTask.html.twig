@@ -1,15 +1,21 @@
 <script type="text/ng-template" id="newTaskForm.html">
     <div class="ListCreation">
-        <form name="newList" action="" method="POST">
+        <form name="newTask" action="" method="POST">
             <div class="FormRow" ng-if="task.errors.error == true">
-                <div class="GlobalErrors" ng-repeat="message in list.errors.messages">
+                <div class="GlobalErrors" ng-repeat="message in task.errors.messages">
                     <label class="GlobalError">{[{ message }]}</label>
                 </div>
             </div>
 
-            <div class="FormRow  TaskFormRow">
-                <input type="text" class="FormRow--field BasicField  TaskFormField" ng-model="task.name" placeholder="Task name">
-                <input type="text" class="FormRow--field BasicField  TaskFormField" ng-model="task.priority" placeholder="Task priority">
+            <div class="FormRow">
+                <div class="FormError  BasicError  TaskError" ng-show="task.form.notExists('task_name')">
+                    <p>Task name has to be provided</p>
+                </div>
+                <input type="text" name="task_name" class="FormRow--field BasicField" ng-model="task.name" placeholder="Task name" required>
+            </div>
+
+            <div class="FormRow">
+                <select class="BasicSelect  TaskSelect" ng-model="task.selected.priority" ng-options="priority.value for priority in task.priority.values track by priority.id"></select>
             </div>
 
             <div class="FormRow">
