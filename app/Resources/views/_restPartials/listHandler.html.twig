@@ -1,6 +1,6 @@
 <script type="text/ng-template" id="listHandler.html">
     <div class="ListHandler">
-        <div class="DirectiveWrapper" list-handler>
+        <div class="DirectiveWrapper" list-handler ng-if="directiveData.recompile == false">
             <div class="ListingManager" ng-if="dom.lists == true">
                 <div class="Sorting">
                     <p class="SortingTitle">Sort by</p>
@@ -39,7 +39,6 @@
             </div>
 
             <div class="Tasks" ng-if="dom.tasks == true">
-
             </div>
         </div>
     </div>

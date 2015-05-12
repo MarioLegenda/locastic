@@ -46,6 +46,11 @@ class Task
     private $deadline;
 
     /**
+     * @ORM\Column(type="datetime", nullable=false, name="task_created")
+     */
+    private $taskCreated;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Locastic\CoreBundle\Entity\ToDoList", inversedBy="task")
      * @ORM\JoinColumn(name="list_id", referencedColumnName="list_id")
      **/
@@ -97,6 +102,14 @@ class Task
 
     public function getListId() {
         return $this->listId;
+    }
+
+    public function setTaskCreated(\DateTime $created) {
+        $this->taskCreated = $created;
+    }
+
+    public function getTaskCreated() {
+        return $this->taskCreated;
     }
 
     /**

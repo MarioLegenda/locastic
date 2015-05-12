@@ -25,6 +25,7 @@ class RestController extends ContainerAware
 
         $builder = new Builder($content);
         $builder->build(
+            $builder->expr()->hasTo(new Exist('entity'), new BeString('entity')),
             $builder->expr()->hasTo(new Exist('order'), new BeString('order')),
             $builder->expr()->hasTo(new Exist('type'), new BeString('type'))
         );
@@ -42,7 +43,7 @@ class RestController extends ContainerAware
 
         try {
             $listRepo = $this->container->get('order_repository');
-            $result = $listRepo->getLists($content['order'], $content['type']);
+            $result = $listRepo->getLists($content['order'], $content['type'], $content['entity']);
         }
         catch(\Exception $e) {
             /*
@@ -168,8 +169,8 @@ class RestController extends ContainerAware
         }
 
         try {
-            $listRepo = $this->container->get('task_repository');
-            $listRepo->addTask($task);
+            $taskRepo = $this->container->get('task_repository');
+            $taskRepo->addTask($task);
         }
         catch(\Exception $e) {
             /*

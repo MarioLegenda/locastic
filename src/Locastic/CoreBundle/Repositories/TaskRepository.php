@@ -11,6 +11,7 @@ class TaskRepository extends Repository
         $list = $this->doctrine->getRepository('LocasticCoreBundle:ToDoList')->find($task->getListId());
 
         $task->setToDoList($list);
+        $task->setTaskCreated(new \DateTime());
 
         $this->manager->persist($task);
         $this->manager->flush();

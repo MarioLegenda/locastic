@@ -91,4 +91,14 @@ angular.module('locastic.directives')
 
             }
         }
+    }])
+    .directive('taskRow', [function() {
+        return {
+            restrict: 'E',
+            replace: true,
+            templateUrl: 'taskRow.html',
+            controller: function($scope) {
+
+            }
+        }
     }]);

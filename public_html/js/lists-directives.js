@@ -60,28 +60,36 @@ angular.module('locastic.directives', [])
             }
         }
     }])
-    .directive('listing', [function() {
+    .directive('listing', ['$timeout', function($timeout) {
         return {
             restrict: 'E',
             replace: true,
             scope: {},
             templateUrl: 'listHandler.html',
             controller: function($scope) {
-                $scope.dom = {
-                    listing: false
-                };
-
                 $scope.directiveData = {
-                    listing: []
+                    listing: [],
+                    restInterface: 'list',
+                    recompile: false
                 };
 
                 $scope.$on('action.lists_listing', function($event, data) {
                     $scope.directiveData.listing = data.listing;
-                    $scope.dom.listing = true;
                 });
 
                 $scope.$on('action.refresh_list', function($event, data) {
                     $scope.directiveData.listing = data.listing;
+                });
+
+                $scope.$on('action.change_interface', function($event, data) {
+                    $scope.directiveData.restInterface = data.restInterface;
+
+                    console.log('budala');
+
+                    $scope.directiveData.recompile = true;
+                    $timeout(function() {
+                        $scope.directiveData.recompile = false;
+                    }, 300);
                 });
             }
         }
@@ -91,7 +99,7 @@ angular.module('locastic.directives', [])
             restrict: 'A',
             replace: false,
             controller: function($scope) {
-                var List = RestProvider.create('list');
+                var RestInterface = RestProvider.create($scope.directiveData.restInterface);
 
                 $scope.dom = {
                     addList: false,
@@ -128,7 +136,8 @@ angular.module('locastic.directives', [])
                     },
                     // function called when sorting lists
                     sort: function(type) {
-                        var promise = List.getItems({
+                        var promise = RestInterface.getItems({
+                            entity: $scope.directiveData.restInterface,
                             type: type,
                             order: $scope.listHandler.listingOrder.makeOrder(type)
                         });
@@ -149,7 +158,8 @@ angular.module('locastic.directives', [])
                 };
 
 
-                var promise = List.getItems({
+                var promise = RestInterface.getItems({
+                    entity: $scope.directiveData.restInterface,
                     type: 'date',
                     order: 'DESC'
                 });
@@ -161,7 +171,8 @@ angular.module('locastic.directives', [])
                 });
 
                 $scope.$on('action.refresh_list', function() {
-                    var promise = List.getItems({
+                    var promise = RestInterface.getItems({
+                        entity: $scope.directiveData.restInterface,
                         type: 'date',
                         order: 'DESC'
                     });
@@ -171,11 +182,11 @@ angular.module('locastic.directives', [])
                     });
                 });
 
-                $scope.$on('action.change_listing', function($event, data) {
+                $scope.$on('action.change_interface', function($event, data) {
                     $scope.listHandler.selectedListId = data.listId;
-                    $scope.dom.addList = false;
+                    /*$scope.dom.addList = false;
                     $scope.dom.tasks = !$scope.dom.tasks;
-                    $scope.dom.lists = !$scope.dom.lists;
+                    $scope.dom.lists = !$scope.dom.lists;*/
                 });
             }
         }
@@ -193,8 +204,9 @@ angular.module('locastic.directives', [])
                     taskList: function($event) {
                         $event.preventDefault();
 
-                        $scope.$emit('action.change_listing', {
-                            listId: $scope.listItem.listid
+                        $scope.$emit('action.change_interface', {
+                            listId: $scope.listItem.listid,
+                            restInterface: 'task'
                         });
                         return false;
                     }

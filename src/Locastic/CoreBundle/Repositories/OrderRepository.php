@@ -12,7 +12,7 @@ class OrderRepository extends Repository
     public function __construct($doctrine) {
         parent::__construct($doctrine);
 
-        $this->types['name'] = function($order) {
+        $this->types['list']['name'] = function($order) {
             $qb = $this->manager->createQueryBuilder();
 
             $lists = $qb->select(array('tl'))
@@ -35,7 +35,7 @@ class OrderRepository extends Repository
             return $listsArray;
         };
 
-        $this->types['date'] = function($order) {
+        $this->types['list']['date'] = function($order) {
             $qb = $this->manager->createQueryBuilder();
 
             $lists = $qb->select(array('tl'))
@@ -58,9 +58,17 @@ class OrderRepository extends Repository
 
             return $listsArray;
         };
+
+        $this->types['task']['date'] = function($order) {
+            $qb = $this->manager->createQueryBuilder();
+
+            /*$tasks = $qb->select(array('t'))
+                ->from('LocasticCoreBundle:Task', 't')
+                ->orderBy('t.')*/
+        };
     }
 
-    public function getLists($order, $type) {
-        return $this->types[$type]->__invoke($order);
+    public function getLists($order, $type, $entity) {
+        return $this->types[$entity][$type]->__invoke($order);
     }
 } 
