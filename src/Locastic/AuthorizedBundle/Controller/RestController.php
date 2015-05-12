@@ -4,6 +4,8 @@ namespace Locastic\AuthorizedBundle\Controller;
 
 
 use Locastic\CoreBundle\Repositories\ListRepository;
+use Locastic\CoreBundle\Tools\ConvenienceValidator;
+use Locastic\CoreBundle\Tools\Factories\DoctrineEntityFactory;
 use RCE\Builder\Builder;
 use RCE\ContentEval;
 use RCE\Filters\BeString;
@@ -72,7 +74,24 @@ class RestController extends ContainerAware
              * If the server receives invalid client data, it rejects the request
              * */
             $response = new Response();
-            $response->setContent('An error occurred. Please, refresh the page and try again');
+            $response->setContent(json_encode('An error occurred. Please, refresh the page and try again'));
+            $response->setStatusCode(400, "BAD");
+
+            return $response;
+        }
+
+        /*
+         * Creates an entity out of an array
+         * */
+        $todoList = DoctrineEntityFactory::initiate('List')->with($content)->create();
+
+        /* Validates the entity with symfony validator */
+        $toValidate = array($todoList);
+        $errors = ConvenienceValidator::init($toValidate, $this->container->get('validator'))->getErrors();
+
+        if($errors !== null) {
+            $response = new Response();
+            $response->setContent(json_encode($errors['errors']));
             $response->setStatusCode(400, "BAD");
 
             return $response;
@@ -88,7 +107,7 @@ class RestController extends ContainerAware
               List data could not be saved to the database. Send bad response
             * */
             $response = new Response();
-            $response->setContent('An error occurred. Please, refresh the page and try again');
+            $response->setContent(json_encode('An error occurred. Please, refresh the page and try again'));
             $response->setStatusCode(400, "BAD");
 
             return $response;

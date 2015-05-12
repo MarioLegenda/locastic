@@ -1,0 +1,27 @@
+<script type="text/ng-template" id="newTaskForm.html">
+    <div class="ListCreation">
+        <form name="newList" action="" method="POST">
+            <div class="FormRow" ng-if="task.errors.error == true">
+                <div class="GlobalErrors" ng-repeat="message in list.errors.messages">
+                    <label class="GlobalError">{[{ message }]}</label>
+                </div>
+            </div>
+
+            <div class="FormRow  TaskFormRow">
+                <input type="text" class="FormRow--field BasicField  TaskFormField" ng-model="task.name" placeholder="Task name">
+                <input type="text" class="FormRow--field BasicField  TaskFormField" ng-model="task.priority" placeholder="Task priority">
+            </div>
+
+            <div class="FormRow">
+                <label class="TaskFormField  BasicLabel  TaskLabel">Deadline</label>
+                <select class="BasicSelect  TaskSelect" ng-model="task.selected.day" ng-options="day.value for day in task.deadline.day"></select>
+                <select class="BasicSelect  TaskSelect" ng-model="task.selected.month" ng-options="month.value for month in task.deadline.month"></select>
+                <select class="BasicSelect  TaskSelect" ng-model="task.selected.year" ng-options="year.value for year in task.deadline.year"></select>
+            </div>
+
+            <div class="FormRow">
+                <input type="submit" class="BasicField BasicSubmitButton" ng-click="task.submit($event)">
+            </div>
+        </form>
+    </div>
+</script>

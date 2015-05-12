@@ -133,4 +133,29 @@ angular.module('locastic.helpers', [])
         }
 
         return new Toggle();
+    }])
+    .factory('Range', [function() {
+        function Range() {
+            this.range = function(min, max, asObject) {
+                var range = [], i, obj;
+
+                if(asObject === true) {
+                    for(i = min; i <= max; i++) {
+                        obj = { id: i, value: i};
+
+                        range.push(obj);
+                    }
+
+                    return range;
+                }
+
+                for(i = min; i <= max; i++) {
+                    range.push(i);
+                }
+
+                return range;
+            }
+        }
+
+        return new Range();
     }]);

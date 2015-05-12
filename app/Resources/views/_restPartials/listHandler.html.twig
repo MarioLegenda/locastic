@@ -1,7 +1,7 @@
 <script type="text/ng-template" id="listHandler.html">
     <div class="ListHandler">
         <div class="DirectiveWrapper" list-handler>
-            <div class="ListingManager">
+            <div class="ListingManager" ng-if="dom.lists == true">
                 <div class="Sorting">
                     <p class="SortingTitle">Sort by</p>
 
@@ -14,9 +14,33 @@
                 </div>
             </div>
 
-            <add-list ng-if="dom.addList == true"></add-list>
+            <div class="TaskManager" ng-if="dom.tasks == true">
+                <div class="Sorting">
+                    <p class="SortingTitle">Sort by</p>
 
-            <list-row ng-if="dom.listing == true" ng-repeat="item in directiveData.listing" list-item="item"></list-row>
+                    <button class="Button" ng-click="listHandler.sort('name')">Name</button>
+                    <button class="Button" ng-click="listHandler.sort('date')">Date created</button>
+                </div>
+
+                <div class="Creation">
+                    <button class="Button" ng-click="listHandler.addTask($event)">New Task</button>
+                </div>
+
+                <div class="">
+                    <button class="Button" ng-click="listHandler.back($event)">Back to lists</button>
+                </div>
+            </div>
+
+            <add-list ng-if="dom.addList == true"></add-list>
+            <add-task ng-if="dom.addTask == true"></add-task>
+
+            <div class="Listing" ng-if="dom.lists == true">
+                <list-row ng-repeat="item in directiveData.listing" list-item="item"></list-row>
+            </div>
+
+            <div class="Tasks" ng-if="dom.tasks == true">
+
+            </div>
         </div>
     </div>
 </script>

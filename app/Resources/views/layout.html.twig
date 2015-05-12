@@ -9,6 +9,7 @@
         {{ include('_restPartials/listHandler.html.twig') }}
         {{ include('_restPartials/addList.html.twig') }}
         {{ include('_restPartials/listRow.html.twig') }}
+        {{ include('_restPartials/addTask.html.twig') }}
 
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset("css/style.css") }}">
@@ -22,7 +23,8 @@
         {% block javascripts %}
             <script src="{{ asset("bower_components/jquery/jquery.min.js") }}"></script>
             <script src="{{ asset("bower_components/angular/angular.min.js") }}"></script>
-            <script src="{{ asset("js/directives.js") }}"></script>
+            <script src="{{ asset("js/lists-directives.js") }}"></script>
+            <script src="{{ asset("js/tasks-directives.js") }}"></script>
             <script src="{{ asset("js/helpers.js") }}"></script>
             <script src="{{ asset("js/rest.js") }}"></script>
             <script src="{{ asset("js/app.js") }}"></script>

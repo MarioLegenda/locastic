@@ -269,6 +269,20 @@ body {
     margin: 50px 0 50px 0; }
     .Managment .ListCreation .BasicSubmitButton {
       margin-right: 300px; }
+    .Managment .ListCreation .TaskFormRow {
+      width: 50%; }
+    .Managment .ListCreation .TaskFormField {
+      width: 100%;
+      margin: 10px; }
+    .Managment .ListCreation .TaskLabel {
+      display: block;
+      width: 100%; }
+    .Managment .ListCreation .TaskSelect {
+      display: block;
+      width: 100px; }
+    .Managment .ListCreation .TaskSubmitButton {
+      margin: 0;
+      float: right; }
   .Managment .ListHandler {
     width: 100%;
     float: left;

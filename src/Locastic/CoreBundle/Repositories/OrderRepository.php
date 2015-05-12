@@ -46,7 +46,8 @@ class OrderRepository extends Repository
 
             $eta = new EntityToArray($lists, array(
                 'getListName',
-                'getListCreated'
+                'getListCreated',
+                'getListId'
             ));
 
             $listsArray = $namesAsArray = $eta->config(array(

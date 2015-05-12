@@ -51,6 +51,33 @@
     .BasicSubmitButton {
       margin-right:300px;
     }
+
+    .TaskFormRow {
+      width:50%;
+    }
+
+    .TaskFormField {
+      width:100%;
+
+      margin:10px;
+    }
+
+    .TaskLabel {
+      display:block;
+      width:100%;
+    }
+
+    .TaskSelect {
+      display:block;
+      width:100px;
+
+
+    }
+
+    .TaskSubmitButton {
+      margin:0;
+      float:right;
+    }
   }
 
   /* todo listing */

@@ -26,6 +26,7 @@ class ToDoList
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false, name="list_name")
+     * @Assert\NotBlank(message = "List name has to be provided")
      */
     private $listName;
 
@@ -61,7 +62,7 @@ class ToDoList
         return $this->user_id;
     }
 
-    public function setListTitle($name) {
+    public function setListName($name) {
         $this->listName = $name;
     }
 
