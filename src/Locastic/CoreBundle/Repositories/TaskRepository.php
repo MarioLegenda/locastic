@@ -16,4 +16,11 @@ class TaskRepository extends Repository
         $this->manager->persist($task);
         $this->manager->flush();
     }
+
+    public function deleteTask(array $content) {
+        $task = $this->doctrine->getRepository('LocasticCoreBundle:Task')->find($content['taskId']);
+
+        $this->manager->remove($task);
+        $this->manager->flush();
+    }
 } 

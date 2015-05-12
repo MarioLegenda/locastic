@@ -190,7 +190,45 @@ class RestController extends ContainerAware
         return $response;
     }
 
-    public function deleteListAction() {
+    public function deleteTaskAction() {
+        $request = $this->container->get('request');
 
+        $content = json_decode($request->getContent(), true);
+
+        $builder = new Builder($content);
+        $builder->build(
+            $builder->expr()->hasTo(new Exist('taskId'), new BeInteger('taskId'))
+        );
+
+        if( ! ContentEval::builder($builder)->isValid()) {
+            /*
+             * If the server receives invalid client data, it rejects the request
+             * */
+            $response = new Response();
+            $response->setContent(json_encode('An error occurred. Please, refresh the page and try again'));
+            $response->setStatusCode(400, "BAD");
+
+            return $response;
+        }
+
+        try {
+            $taskRepo = $this->container->get('task_repository');
+            $taskRepo->deleteTask($content);
+        }
+        catch(\Exception $e) {
+            /*
+              List data could not be saved to the database. Send bad response
+            * */
+            $response = new Response();
+            $response->setContent($e->getMessage());
+            $response->setStatusCode(400, "BAD");
+
+            return $response;
+        }
+
+        $response = new Response();
+        $response->setStatusCode(200, "OK");
+
+        return $response;
     }
 } 

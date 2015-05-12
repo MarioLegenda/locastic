@@ -92,7 +92,7 @@ angular.module('locastic.directives')
             }
         }
     }])
-    .directive('taskRow', ['Toggle', function(Toggle) {
+    .directive('taskRow', ['Toggle', 'RestProvider', function(Toggle, RestProvider) {
         return {
             restrict: 'E',
             replace: true,
@@ -127,6 +127,27 @@ angular.module('locastic.directives')
                             elem: elem,
                             originalHeight: originalHeight
                         });
+
+                        return false;
+                    },
+                    deleteTask: function($event) {
+                        $event.preventDefault();
+
+                        var Task, promise;
+
+                        Task = RestProvider.create('task');
+
+                        console.log($scope.taskItem);
+                        promise = Task.deleteItem({
+                            taskId: $scope.taskItem.taskid
+                        });
+
+                        promise.then(function() {
+                            $scope.$emit('action.proxy.refresh_list', {});
+                        }, function() {
+
+                        });
+
 
                         return false;
                     }

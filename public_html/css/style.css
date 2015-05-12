@@ -317,6 +317,11 @@ Specific containers and directives like...
     font-size: 1.2em;
     text-align: center;
     color: white; }
+  .ListRow .TaskManagment {
+    width: 100%;
+    float: left;
+    padding: 10px;
+    background-color: #424242; }
   .ListRow .TaskInfo {
     width: 100%;
     text-align: left; }

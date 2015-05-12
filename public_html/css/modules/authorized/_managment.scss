@@ -132,6 +132,15 @@ Specific containers and directives like...
     color:white;
   }
 
+  .TaskManagment {
+    width:100%;
+    float:left;
+
+    padding:10px;
+
+    background-color: $mainColor;
+  }
+
   .TaskInfo {
     width:100%;
     text-align: left;

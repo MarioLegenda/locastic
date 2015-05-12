@@ -12,7 +12,8 @@ angular.module('locastic.helpers', [])
                     getLists: 'list-managment/get-items'
                 },
                 task: {
-                    addTask: 'task-managment/add-task'
+                    addTask: 'task-managment/add-task',
+                    deleteTask: 'task-managment/delete-task'
                 }
             };
 

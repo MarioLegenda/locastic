@@ -19,5 +19,10 @@
         <div class="ListInfo">
             <label>Priority: {[{ taskItem.isfinished }]}</label>
         </div>
+
+        <div class="TaskManagment">
+            <button class="Button" ng-click="taskRow.deleteTask($event)">Delete task</button>
+            <button class="Button">Change task information</button>
+        </div>
     </div>
 </script>
