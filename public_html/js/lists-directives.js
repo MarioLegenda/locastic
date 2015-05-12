@@ -109,6 +109,8 @@ angular.module('locastic.directives', [])
                     listingOrder: {
                         date: true,
                         name: false,
+                        deadline: false,
+                        priority: false,
                         makeOrder: function(type) {
                             var order = (this[type] === true) ? 'ASC' : 'DESC';
                             this[type] = !this[type];
@@ -119,7 +121,7 @@ angular.module('locastic.directives', [])
                     // function called when sorting lists
                     sort: function(type) {
                         var promise = RestInterface.getItems({
-                            entity: $scope.directiveData.restInterface,
+                            entity: $scope.listHandler.interfaceType,
                             type: type,
                             order: $scope.listHandler.listingOrder.makeOrder(type)
                         });

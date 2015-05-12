@@ -71,7 +71,7 @@ angular.module('locastic.directives')
                             });
 
                             promise.then(function() {
-
+                                $scope.$emit('action.proxy.refresh_list', {});
                             }, function(data) {
                                 $scope.task.errors.error = true;
                                 $scope.task.errors.messages = data.data;
@@ -91,7 +91,7 @@ angular.module('locastic.directives')
             }
         }
     }])
-    .directive('taskRow', [function() {
+    .directive('taskRow', ['Toggle', function(Toggle) {
         return {
             restrict: 'E',
             replace: true,
@@ -101,6 +101,37 @@ angular.module('locastic.directives')
             },
             templateUrl: 'taskRow.html',
             controller: function($scope) {
+
+                console.log($scope.taskItem);
+
+                Toggle.create($scope.taskItem.taskid, {
+                    enter: function() {
+                        this.elem.css({
+                            height:'450px'
+                        })
+                    },
+                    exit: function() {
+                        this.elem.css({
+                            height: this.originalHeight
+                        })
+                    }
+                });
+
+            },
+            link: function($scope, elem, attrs) {
+                var originalHeight = '41px';
+                $scope.taskRow = {
+                    expand: function($event) {
+                        $event.preventDefault();
+
+                        Toggle.toggle($scope.taskItem.taskid, {
+                            elem: elem,
+                            originalHeight: originalHeight
+                        });
+
+                        return false;
+                    }
+                }
             }
         }
     }]);

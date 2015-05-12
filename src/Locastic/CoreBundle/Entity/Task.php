@@ -46,6 +46,11 @@ class Task
     private $deadline;
 
     /**
+     * @ORM\Column(type="smallint", nullable=false, name="is_finished")
+     */
+    private $isFinished;
+
+    /**
      * @ORM\Column(type="datetime", nullable=false, name="task_created")
      */
     private $taskCreated;
@@ -72,7 +77,12 @@ class Task
         return $this->taskTitle;
     }
 
-    public function setPriority($priority) {
+    public function setPriority($priority, \Closure $dynamicSet = null) {
+        if($dynamicSet !== null) {
+            $this->priority = $dynamicSet->__invoke($this->priority);
+            return $this;
+        }
+
         $this->priority = $priority;
     }
 
@@ -112,12 +122,20 @@ class Task
         return $this->taskCreated;
     }
 
+    public function setIsFinished($finished) {
+        $this->isFinished = $finished;
+    }
+
+    public function getIsFinished() {
+        return $this->isFinished;
+    }
+
     /**
      * @Assert\Callback
      */
     public function validate(ExecutionContextInterface $context)
     {
-        if(new \DateTime() <= $this->getDeadline()) {
+        if(new \DateTime() >= $this->getDeadline()) {
             $context->buildViolation('You cannot select past dates as deadlines')
                 ->atPath('deadline')
                 ->addViolation();

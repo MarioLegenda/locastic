@@ -242,7 +242,7 @@ body {
     margin: 0 0 25px 0;
     padding: 10px; }
   .Managment .Sorting {
-    width: 30%;
+    width: 60%;
     float: left; }
     .Managment .Sorting .SortingTitle {
       width: 25%;
@@ -263,6 +263,8 @@ body {
     .Managment .Button:hover {
       cursor: pointer;
       background-color: #EC7063; }
+  .Managment .ButtonRight {
+    float: left; }
   .Managment .ListCreation {
     width: 100%;
     float: left;
@@ -295,6 +297,8 @@ body {
       float: left;
       margin-bottom: 5px;
       border: 1px solid white; }
+    .Managment .ListHandler .FixedHeight {
+      height: 40px; }
 
 /*
 
@@ -304,20 +308,32 @@ Specific containers and directives like...
 - task row
 
 */
-.ListRow .RowInfo {
-  display: block;
-  width: 25%;
-  float: left;
-  z-index: -1;
-  font-size: 1.2em;
-  text-align: center;
-  color: white; }
-.ListRow .Expandable {
-  width: 100%;
-  float: left;
-  padding: 10px; }
-  .ListRow .Expandable:hover {
-    cursor: pointer;
-    background-color: #EC7063; }
+.ListRow {
+  overflow: hidden; }
+  .ListRow .RowInfo {
+    display: block;
+    width: 25%;
+    float: left;
+    font-size: 1.2em;
+    text-align: center;
+    color: white; }
+  .ListRow .TaskInfo {
+    width: 100%;
+    text-align: left; }
+  .ListRow .Expandable {
+    width: 100%;
+    float: left;
+    padding: 10px; }
+    .ListRow .Expandable:hover {
+      cursor: pointer;
+      background-color: #EC7063; }
+  .ListRow .ListInfo {
+    width: 100%;
+    float: left;
+    padding: 10px;
+    margin: 10px 0 10px 0;
+    border-bottom: 1px dotted white;
+    font-size: 1.2em;
+    color: white; }
 
 /*# sourceMappingURL=style.css.map */

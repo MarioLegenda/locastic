@@ -1,10 +1,23 @@
 <script type="text/ng-template" id="taskRow.html">
-    <div class="Row  ListRow">
-        <a class="Expandable">
-            <span class="RowInfo">{[{  }]}</span>
-            <span class="RowInfo"></span>
-            <span class="RowInfo"></span>
-            <span class="RowInfo"></span>
+    <div class="Row  ListRow  FixedHeight">
+        <a class="Expandable" ng-click="taskRow.expand($event)">
+            <span class="RowInfo  TaskInfo">Task name: {[{ taskItem.tasktitle }]}</span>
         </a>
+
+        <div class="ListInfo">
+            <label>Task created: {[{ taskItem.taskcreated | dateParse }]}</label>
+        </div>
+
+        <div class="ListInfo">
+            <label>Deadline: {[{ taskItem.deadline | dateParse }]}</label>
+        </div>
+
+        <div class="ListInfo">
+            <label>Priority: {[{ taskItem.priority }]}</label>
+        </div>
+
+        <div class="ListInfo">
+            <label>Priority: {[{ taskItem.isfinished }]}</label>
+        </div>
     </div>
 </script>

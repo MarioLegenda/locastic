@@ -8,10 +8,6 @@
                     <button class="Button" ng-click="listHandler.sort('name')">Name</button>
                     <button class="Button" ng-click="listHandler.sort('date')">Date created</button>
                 </div>
-
-                <div class="Creation">
-                    <button class="Button" ng-click="listHandler.addList($event)">New List</button>
-                </div>
             </div>
 
             <div class="TaskManager" ng-if="dom.tasks == true">
@@ -20,10 +16,8 @@
 
                     <button class="Button" ng-click="listHandler.sort('name')">Name</button>
                     <button class="Button" ng-click="listHandler.sort('date')">Date created</button>
-                </div>
-
-                <div class="Creation">
-                    <button class="Button" ng-click="listHandler.addTask($event)">New Task</button>
+                    <button class="Button  ButtonRight" ng-if="dom.tasks == true" ng-click="listHandler.sort('deadline')">Deadline</button>
+                    <button class="Button  ButtonRight" ng-if="dom.tasks == true" ng-click="listHandler.sort('priority')">Priority</button>
                 </div>
 
                 <div class="">

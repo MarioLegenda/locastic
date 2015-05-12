@@ -59,6 +59,49 @@ class OrderRepository extends Repository
             return $listsArray;
         };
 
+        $this->types['task']['name'] = function($order) {
+            $qb = $this->manager->createQueryBuilder();
+
+            $tasks = $qb->select(array('t'))
+                ->from('LocasticCoreBundle:Task', 't')
+                ->orderBy('t.taskTitle', $order)
+                ->getQuery()
+                ->getResult();
+
+            foreach($tasks as $task) {
+                $task->setPriority(null, function($priority) {
+                    switch($priority) {
+                        case '1': return 'Low';
+                        case '2': return 'Normal';
+                        case '3': return 'High';
+                    }
+                });
+
+                $status = $task->getIsFinished();
+
+                $task->setIsFinished(($status === 0) ? 'Pending' : 'Finished');
+            }
+
+            $eta = new EntityToArray($tasks, array(
+                'getTaskTitle',
+                'getIsFinished',
+                'getDeadline',
+                'getPriority',
+                'getTaskCreated',
+                'getTaskId'
+            ));
+
+            $tasksArray = $namesAsArray = $eta->config(array(
+                'methodName-keys' => true,
+                'multidimensional' => false,
+                'only-names' => true
+            ))->toArray();
+
+
+
+            return $tasksArray;
+        };
+
         $this->types['task']['date'] = function($order) {
             $qb = $this->manager->createQueryBuilder();
 
@@ -68,11 +111,27 @@ class OrderRepository extends Repository
                 ->getQuery()
                 ->getResult();
 
+            foreach($tasks as $task) {
+                $task->setPriority(null, function($priority) {
+                    switch($priority) {
+                        case '1': return 'Low';
+                        case '2': return 'Normal';
+                        case '3': return 'High';
+                    }
+                });
+
+                $status = $task->getIsFinished();
+
+                $task->setIsFinished(($status === 0) ? 'Pending' : 'Finished');
+            }
+
             $eta = new EntityToArray($tasks, array(
                 'getTaskTitle',
+                'getIsFinished',
                 'getDeadline',
                 'getPriority',
-                'getTaskCreated'
+                'getTaskCreated',
+                'getTaskId'
             ));
 
             $tasksArray = $namesAsArray = $eta->config(array(
@@ -80,6 +139,94 @@ class OrderRepository extends Repository
                 'multidimensional' => false,
                 'only-names' => true
             ))->toArray();
+
+
+
+            return $tasksArray;
+        };
+
+        $this->types['task']['deadline'] = function($order) {
+            $qb = $this->manager->createQueryBuilder();
+
+            $tasks = $qb->select(array('t'))
+                ->from('LocasticCoreBundle:Task', 't')
+                ->orderBy('t.deadline', $order)
+                ->getQuery()
+                ->getResult();
+
+            foreach($tasks as $task) {
+                $task->setPriority(null, function($priority) {
+                    switch($priority) {
+                        case '1': return 'Low';
+                        case '2': return 'Normal';
+                        case '3': return 'High';
+                    }
+                });
+
+                $status = $task->getIsFinished();
+
+                $task->setIsFinished(($status === 0) ? 'Pending' : 'Finished');
+            }
+
+            $eta = new EntityToArray($tasks, array(
+                'getTaskTitle',
+                'getIsFinished',
+                'getDeadline',
+                'getPriority',
+                'getTaskCreated',
+                'getTaskId'
+            ));
+
+            $tasksArray = $namesAsArray = $eta->config(array(
+                'methodName-keys' => true,
+                'multidimensional' => false,
+                'only-names' => true
+            ))->toArray();
+
+
+
+            return $tasksArray;
+        };
+
+        $this->types['task']['priority'] = function($order) {
+            $qb = $this->manager->createQueryBuilder();
+
+            $tasks = $qb->select(array('t'))
+                ->from('LocasticCoreBundle:Task', 't')
+                ->orderBy('t.deadline', $order)
+                ->getQuery()
+                ->getResult();
+
+            foreach($tasks as $task) {
+                $task->setPriority(null, function($priority) {
+                    switch($priority) {
+                        case '1': return 'Low';
+                        case '2': return 'Normal';
+                        case '3': return 'High';
+                    }
+                });
+
+                $status = $task->getIsFinished();
+
+                $task->setIsFinished(($status === 0) ? 'Pending' : 'Finished');
+            }
+
+            $eta = new EntityToArray($tasks, array(
+                'getTaskTitle',
+                'getIsFinished',
+                'getDeadline',
+                'getPriority',
+                'getTaskCreated',
+                'getTaskId'
+            ));
+
+            $tasksArray = $namesAsArray = $eta->config(array(
+                'methodName-keys' => true,
+                'multidimensional' => false,
+                'only-names' => true
+            ))->toArray();
+
+
 
             return $tasksArray;
         };

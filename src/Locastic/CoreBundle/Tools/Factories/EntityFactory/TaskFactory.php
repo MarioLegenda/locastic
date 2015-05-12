@@ -25,6 +25,7 @@ class TaskFactory
         $task->setTaskTitle($this->data['name']);
         $task->setPriority($this->data['priority']);
         $task->setDeadline($this->data['deadline']);
+        $task->setIsFinished(0);
 
         return $task;
     }
