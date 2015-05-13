@@ -6,9 +6,9 @@ parameters:
     database_name: locastic
     database_user: root
     database_password: digital1986
-    mailer_transport: smtp
-    mailer_host: gmail
+    mailer_transport: gmail
+    mailer_host: ~
     mailer_user: assotmn@gmail.com
-    mailer_password: AS0_mnOp_6
+    mailer_password: digital1986
     locale: en
     secret: e10ccaa499cd68b0f5b3967539c73b03e

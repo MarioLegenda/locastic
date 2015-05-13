@@ -66,8 +66,8 @@ angular.module('locastic.directives')
                             };
 
                             if($scope.prepopulated == 'true') {
-                                var Task = RestProvider.create('task'),
-                                    task = JSON.parse($scope.taskItem),
+                                Task = RestProvider.create('task');
+                                    var task = JSON.parse($scope.taskItem),
                                     promise;
 
                                 promise = Task.modifyItem({
@@ -84,6 +84,7 @@ angular.module('locastic.directives')
                                 return;
                             }
 
+                            console.log(Task);
                             var promise = Task.addItem({
                                 listId: $scope.listId,
                                 name: $scope.task.name,

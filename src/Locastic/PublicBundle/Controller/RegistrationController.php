@@ -55,7 +55,11 @@ class RegistrationController extends ContainerAware
                         'link' => $router->generate('locastic_public_verification', array('hash' => $user->getVerificationHash()), true)
                     )), 'text/html');
 
-                $mailer->send($message);
+                $status = $mailer->send($message);
+
+                if($status === false) {
+                    throw new \Exception("Email could not be sent");
+                }
 
                 /* If the user is created successfully, login page is displayed */
                 return new RedirectResponse("login");

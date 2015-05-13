@@ -44,13 +44,16 @@ class OrderRepository extends Repository
                        (SELECT COUNT(ts.taskId) FROM LocasticCoreBundle:Task ts WHERE ts.listId = l.listId AND ts.isFinished = 0) AS unfinished,
                        (SELECT COUNT(ta.taskId) FROM LocasticCoreBundle:Task ta WHERE ta.listId = l.listId AND ta.isFinished = 1) AS finished
                     FROM LocasticCoreBundle:ToDoList l
-                    JOIN LocasticCoreBundle:Task t WHERE t.taskId = l.listId
                     ORDER BY l.listCreated ' . $order)
                 ->getResult(Query::HYDRATE_ARRAY);
 
-
             array_walk($lists, function(&$item, $index) {
-                $item['completed'] = ($item['finished'] / $item['total_tasks']) * 100;
+                if($item['finished'] === 0 AND $item['total_tasks'] === 0) {
+                    $item['completed'] = 0;
+                }
+                else {
+                    $item['completed'] = @($item['finished'] / $item['total_tasks']) * 100;
+                }
             });
 
             return $lists;

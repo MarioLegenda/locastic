@@ -40,8 +40,8 @@ class RestController extends ContainerAware
         }
 
         try {
-            $listRepo = $this->container->get('order_repository');
-            $result = $listRepo->getLists($content);
+            $orderRepo = $this->container->get('order_repository');
+            $result = $orderRepo->getLists($content);
         }
         catch(\Exception $e) {
             $response = new Response();
