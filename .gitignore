@@ -3,9 +3,4 @@
 !app/logs/.gitkeep
 /app/phpunit.xml
 /bin/
-/composer.phar
-/public_html/bundles/
-/public_html/bower_components/angular/*
-!public_html/bower_components/angular/angular.min.js
-/public_html/images/originali/*
 /.idea

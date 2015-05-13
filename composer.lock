@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "18bf7dac76590bd3d56f65227721554c",
+    "hash": "6ff9b90605f361a1905ef421bb637225",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -890,12 +890,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/MarioLegenda/entity-to-array.git",
-                "reference": "95efdf62262df93eea6e6b101f4df18b956a44b1"
+                "reference": "0ad5c630ec2af7326df0e193735079904375f369"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MarioLegenda/entity-to-array/zipball/95efdf62262df93eea6e6b101f4df18b956a44b1",
-                "reference": "95efdf62262df93eea6e6b101f4df18b956a44b1",
+                "url": "https://api.github.com/repos/MarioLegenda/entity-to-array/zipball/0ad5c630ec2af7326df0e193735079904375f369",
+                "reference": "0ad5c630ec2af7326df0e193735079904375f369",
                 "shasum": ""
             },
             "require": {
@@ -923,7 +923,7 @@
             "keywords": [
                 "php"
             ],
-            "time": "2015-04-07 11:29:25"
+            "time": "2015-05-11 21:03:05"
         },
         {
             "name": "mario-legenda/php-strong-types",

@@ -1,6 +1,0 @@
-eb9695,::1,GET,http://localhost:4430/locastic/public_html/app_dev.php/,1431552269,
-571db7,::1,GET,http://localhost:4430/locastic/public_html/app_dev.php/list-managment/get-items,1431552277,7713fa
-7713fa,::1,POST,http://localhost:4430/locastic/public_html/app_dev.php/list-managment/get-items,1431552277,
-9d617a,::1,GET,http://localhost:4430/locastic/public_html/app_dev.php/,1431552294,
-e97304,::1,GET,http://localhost:4430/locastic/public_html/app_dev.php/list-managment/get-items,1431552300,89dbb6
-89dbb6,::1,POST,http://localhost:4430/locastic/public_html/app_dev.php/list-managment/get-items,1431552300,
