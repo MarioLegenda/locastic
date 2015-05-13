@@ -247,4 +247,53 @@ class RestController extends ContainerAware
 
         return $response;
     }
+
+    public function modifyTaskAction() {
+        $request = $this->container->get('request');
+
+        $content = json_decode($request->getContent(), true);
+
+        $builder = new Builder($content);
+        $builder->build(
+            $builder->expr()->hasTo(new Exist('taskId'), new BeInteger('taskId')),
+            $builder->expr()->hasTo(new Exist('name'), new BeString('name')),
+            $builder->expr()->hasTo(new Exist('deadline'), new BeArray('deadline'), new Mutator('deadline', function($toMutate) {
+                $day = $toMutate['day'];
+                $month = $toMutate['month'];
+                $year = $toMutate['year'];
+
+                return new \DateTime($year . '-' . $month . '-' . $day);
+            })),
+            $builder->expr()->hasTo(new Exist('priority'), new BeInteger('priority'))
+        );
+
+        if( ! ContentEval::builder($builder)->isValid()) {
+            /*
+             * If the server receives invalid client data, it rejects the request
+             * */
+            $response = new Response();
+            $response->setContent(json_encode('An error occurred. Please, refresh the page and try again'));
+            $response->setStatusCode(400, "BAD");
+
+            return $response;
+        }
+
+        try {
+            $taskRepo = $this->container->get('task_repository');
+            $taskRepo->modifyTask($builder->getContent());
+        }
+        catch(\Exception $e) {
+            $response = new Response();
+            $response->setContent($e->getMessage());
+            $response->setStatusCode(400, "BAD");
+
+            return $response;
+        }
+
+
+        $response = new Response();
+        $response->setStatusCode(200, "OK");
+
+        return $response;
+    }
 } 

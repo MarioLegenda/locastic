@@ -122,6 +122,7 @@ angular.module('locastic.directives', [])
                     // function called when sorting lists
                     sort: function(type) {
                         var promise = RestInterface.getItems({
+                            listId: $scope.listHandler.selectedListId,
                             entity: $scope.listHandler.interfaceType,
                             type: type,
                             order: $scope.listHandler.listingOrder.makeOrder(type)

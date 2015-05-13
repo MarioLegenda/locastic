@@ -56,6 +56,13 @@ angular.module('locastic.rest', [])
                                 url: Path.namespace('task.deleteTask').construct(),
                                 data: data
                             });
+                        },
+                        modifyItem: function(data) {
+                            return $http({
+                                method: 'POST',
+                                url: Path.namespace('task.modifyTask').construct(),
+                                data: data
+                            });
                         }
                     }
                 }

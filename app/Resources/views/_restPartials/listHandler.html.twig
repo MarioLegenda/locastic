@@ -26,7 +26,7 @@
             </div>
 
             <add-list ng-if="dom.lists == true"></add-list>
-            <add-task ng-if="dom.tasks == true" list-id="{[{ listHandler.selectedListId }]}"></add-task>
+            <add-task ng-if="dom.tasks == true" list-id="{[{ listHandler.selectedListId }]}" prepopulated="{[{ directiveData.prepopulated }]}" task-item="{[{ directiveData.taskItem }]}"></add-task>
 
             <div class="Listing" ng-if="dom.lists == true">
                 <list-row ng-repeat="item in directiveData.listing" list-item="item"></list-row>

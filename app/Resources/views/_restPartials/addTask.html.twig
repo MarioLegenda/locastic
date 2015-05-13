@@ -26,7 +26,8 @@
             </div>
 
             <div class="FormRow">
-                <input type="submit" class="BasicField BasicSubmitButton" ng-click="task.submit($event)" value="Create task">
+                <input ng-if="prepopulated != 'true'" type="submit" class="BasicField BasicSubmitButton" ng-click="task.submit($event)" value="Create task">
+                <input ng-if="prepopulated == 'true'" type="submit" class="BasicField BasicSubmitButton" ng-click="task.submit($event)" value="Modify task">
             </div>
         </form>
     </div>

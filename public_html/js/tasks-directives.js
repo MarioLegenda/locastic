@@ -1,14 +1,15 @@
 angular.module('locastic.directives')
-    .directive('addTask', ['RestProvider', 'Range', 'FormHandler', function(RestProvider, Range, FormHandler) {
+    .directive('addTask', ['RestProvider', 'Range', 'FormHandler', '$timeout', function(RestProvider, Range, FormHandler, $timeout) {
         return {
             restrict: 'E',
             replace: true,
             scope: {
-                listId: '@listId'
+                listId: '@listId',
+                prepopulated: '@prepopulated',
+                taskItem: '@taskItem'
             },
             templateUrl: 'newTaskForm.html',
             controller: function($scope) {
-
                 var Task = RestProvider.create('task');
 
                 $scope.task = {
@@ -18,7 +19,7 @@ angular.module('locastic.directives')
                         values: [
                             { id: 1, value: 'Low'},
                             { id: 2, value: 'Normal'},
-                            { id: 3, value: 'Maximum'}
+                            { id: 3, value: 'High'}
                         ]
                     },
                     deadline: {
@@ -64,6 +65,25 @@ angular.module('locastic.directives')
                                 day: $scope.task.selected.day.value
                             };
 
+                            if($scope.prepopulated == 'true') {
+                                var Task = RestProvider.create('task'),
+                                    task = JSON.parse($scope.taskItem),
+                                    promise;
+
+                                promise = Task.modifyItem({
+                                    taskId: task.taskid,
+                                    name: $scope.task.name,
+                                    deadline: date,
+                                    priority: $scope.task.selected.priority.id
+                                });
+
+                                promise.then(function() {
+                                    $scope.$emit('action.proxy.refresh_list', {});
+                                });
+
+                                return;
+                            }
+
                             var promise = Task.addItem({
                                 listId: $scope.listId,
                                 name: $scope.task.name,
@@ -93,6 +113,43 @@ angular.module('locastic.directives')
                 $scope.task.selected.year = $scope.task.deadline.year[0];
                 $scope.task.selected.priority = $scope.task.priority.values[1];
 
+                $timeout(function() {
+
+                    /* This is so dirty that it cannot be dirtier. */
+
+                    if($scope.prepopulated == 'true') {
+                        var task = JSON.parse($scope.taskItem),
+                            priorities = $scope.task.priority.values,
+                            deadline = new Date(task.deadline.date);
+
+                        console.log(task);
+
+                        $scope.task.name = task.tasktitle;
+
+                        for(var i = 0; i < priorities.length; i++) {
+                            if(priorities[i].hasOwnProperty('value')) {
+                                if(priorities[i].value === task.priority) {
+                                    $scope.task.selected.priority = priorities[i];
+                                }
+                            }
+                        }
+
+                        var yearIndex = ( function(year) {
+                            var years = $scope.task.deadline.year;
+
+                            for(var i = 0; i < years.length; i++) {
+                                if(years[i].value === year) {
+                                    return i;
+                                }
+                            }
+                        } (deadline.getFullYear()) );
+
+                        $scope.task.selected.day = $scope.task.deadline.day[deadline.getDate() - 1];
+                        $scope.task.selected.month = $scope.task.deadline.month[deadline.getMonth()];
+                        $scope.task.selected.year = $scope.task.deadline.year[yearIndex];
+                    }
+                }, 1000);
+
 
             }
         }
@@ -107,6 +164,10 @@ angular.module('locastic.directives')
             },
             templateUrl: 'taskRow.html',
             controller: function($scope) {
+                $scope.directiveData = {
+                    prepopulated: false,
+                    taskItem: $scope.taskItem
+                };
 
                 Toggle.create($scope.taskItem.taskid, {
                     enter: function() {
@@ -133,6 +194,8 @@ angular.module('locastic.directives')
                             originalHeight: originalHeight
                         });
 
+                        $scope.directiveData.prepopulated = false;
+
                         return false;
                     },
                     deleteTask: function($event) {
@@ -152,6 +215,17 @@ angular.module('locastic.directives')
 
                         });
 
+
+                        return false;
+                    },
+                    changeMetadata: function($event) {
+                        $event.preventDefault();
+
+                        elem.css({
+                            height: '700px'
+                        });
+
+                        $scope.directiveData.prepopulated = true;
 
                         return false;
                     }

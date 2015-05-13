@@ -26,7 +26,9 @@
 
         <div class="TaskManagment">
             <button class="Button" ng-click="taskRow.deleteTask($event)">Delete task</button>
-            <button class="Button">Change task information</button>
+            <button class="Button" ng-click="taskRow.changeMetadata($event)">Change task information</button>
         </div>
+
+        <add-task ng-if="directiveData.prepopulated == true" list-id="{[{ listHandler.selectedListId }]}" prepopulated="{[{ directiveData.prepopulated }]}" task-item="{[{ directiveData.taskItem }]}"></add-task>
     </div>
 </script>

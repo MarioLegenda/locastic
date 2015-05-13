@@ -29,3 +29,7 @@ locastic_getTasks:
 locastic_deleteTask:
     path: /task-managment/delete-task
     defaults: { _controller: LocasticAuthorizedBundle:Rest:deleteTask }
+
+locastic_modifyTask:
+    path: /task-managment/modify-task
+    defaults: { _controller: LocasticAuthorizedBundle:Rest:modifyTask }

@@ -70,12 +70,14 @@ class OrderRepository extends Repository
             return $this->taskRefactoring($tasks);
         };
 
-        $this->types['task']['deadline'] = function($order) {
+        $this->types['task']['deadline'] = function($order, $listId) {
             $qb = $this->manager->createQueryBuilder();
 
             $tasks = $qb->select(array('t'))
                 ->from('LocasticCoreBundle:Task', 't')
+                ->where($qb->expr()->eq('t.listId', ':list_id'))
                 ->orderBy('t.deadline', $order)
+                ->setParameter(':list_id', $listId)
                 ->getQuery()
                 ->getResult();
 
@@ -85,12 +87,28 @@ class OrderRepository extends Repository
             return $tasksArray;
         };
 
-        $this->types['task']['priority'] = function($order) {
+        $this->types['task']['priority'] = function($order, $listId) {
             $qb = $this->manager->createQueryBuilder();
 
             $tasks = $qb->select(array('t'))
                 ->from('LocasticCoreBundle:Task', 't')
-                ->orderBy('t.deadline', $order)
+                ->where($qb->expr()->eq('t.listId', ':list_id'))
+                ->orderBy('t.priority', $order)
+                ->setParameter(':list_id', $listId)
+                ->getQuery()
+                ->getResult();
+
+            return $this->taskRefactoring($tasks);
+        };
+
+        $this->types['task']['name'] = function($order, $listId) {
+            $qb = $this->manager->createQueryBuilder();
+
+            $tasks = $qb->select(array('t'))
+                ->from('LocasticCoreBundle:Task', 't')
+                ->where($qb->expr()->eq('t.listId', ':list_id'))
+                ->orderBy('t.taskTitle', $order)
+                ->setParameter(':list_id', $listId)
                 ->getQuery()
                 ->getResult();
 
