@@ -8,10 +8,6 @@
 /bin/
 /composer.phar
 /public_html/bundles/
-/public_html/bower_components/jquery/*
-!public_html/bower_components/jquery/dist
-/public_html/bower_components/jquery/dist/*
-!public_html/bower_components/jquery/dist/jquery.min.js
 /public_html/bower_components/angular/*
 !public_html/bower_components/angular/angular.min.js
 /public_html/images/originali/*
