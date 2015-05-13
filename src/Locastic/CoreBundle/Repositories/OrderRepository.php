@@ -13,64 +13,47 @@ class OrderRepository extends Repository
         parent::__construct($doctrine);
 
         $this->types['list']['name'] = function($order) {
-            $qb = $this->manager->createQueryBuilder();
+            $lists = $qb = $this->manager->createQuery('
+                    SELECT
+                       l.listId AS listid,
+                       l.listName AS listname,
+                       l.listCreated AS listcreated,
+                       (SELECT COUNT(tk.taskId) FROM LocasticCoreBundle:Task tk WHERE tk.listId = l.listId ) AS total_tasks,
+                       (SELECT COUNT(ts.taskId) FROM LocasticCoreBundle:Task ts WHERE ts.listId = l.listId AND ts.isFinished = 0) AS unfinished,
+                       (SELECT COUNT(ta.taskId) FROM LocasticCoreBundle:Task ta WHERE ta.listId = l.listId AND ta.isFinished = 1) AS finished
+                    FROM LocasticCoreBundle:ToDoList l
+                    JOIN LocasticCoreBundle:Task t WHERE t.taskId = l.listId
+                    ORDER BY l.listCreated ' . $order)
+                ->getResult(Query::HYDRATE_ARRAY);
 
-            $lists = $qb->select(array('tl'))
-                ->from('LocasticCoreBundle:ToDoList', 'tl')
-                ->orderBy('tl.listName', $order)
-                ->getQuery()
-                ->getResult();
 
-            $eta = new EntityToArray($lists, array(
-                'getListName',
-                'getListCreated'
-            ));
+            array_walk($lists, function(&$item, $index) {
+                $item['completed'] = ($item['finished'] / $item['total_tasks']) * 100;
+            });
 
-            $listsArray = $namesAsArray = $eta->config(array(
-                'methodName-keys' => true,
-                'multidimensional' => false,
-                'only-names' => true
-            ))->toArray();
-
-            return $listsArray;
+            return $lists;
         };
 
         $this->types['list']['date'] = function($order) {
-            $qb = $this->manager->createQueryBuilder();
+            $lists = $qb = $this->manager->createQuery('
+                    SELECT
+                       l.listId AS listid,
+                       l.listName AS listname,
+                       l.listCreated AS listcreated,
+                       (SELECT COUNT(tk.taskId) FROM LocasticCoreBundle:Task tk WHERE tk.listId = l.listId ) AS total_tasks,
+                       (SELECT COUNT(ts.taskId) FROM LocasticCoreBundle:Task ts WHERE ts.listId = l.listId AND ts.isFinished = 0) AS unfinished,
+                       (SELECT COUNT(ta.taskId) FROM LocasticCoreBundle:Task ta WHERE ta.listId = l.listId AND ta.isFinished = 1) AS finished
+                    FROM LocasticCoreBundle:ToDoList l
+                    JOIN LocasticCoreBundle:Task t WHERE t.taskId = l.listId
+                    ORDER BY l.listCreated ' . $order)
+                ->getResult(Query::HYDRATE_ARRAY);
 
-            $lists = $qb->select(array('tl'))
-                ->from('LocasticCoreBundle:ToDoList', 'tl')
-                ->orderBy('tl.listCreated', $order)
-                ->getQuery()
-                ->getResult();
 
-            $eta = new EntityToArray($lists, array(
-                'getListName',
-                'getListCreated',
-                'getListId'
-            ));
+            array_walk($lists, function(&$item, $index) {
+                $item['completed'] = ($item['finished'] / $item['total_tasks']) * 100;
+            });
 
-            $listsArray = $namesAsArray = $eta->config(array(
-                'methodName-keys' => true,
-                'multidimensional' => false,
-                'only-names' => true
-            ))->toArray();
-
-            return $listsArray;
-        };
-
-        $this->types['task']['name'] = function($order, $listId) {
-            $qb = $this->manager->createQueryBuilder();
-
-            $tasks = $qb->select(array('t'))
-                ->from('LocasticCoreBundle:Task', 't')
-                ->where($qb->expr()->eq('t.listId', ':list_id'))
-                ->orderBy('t.taskTitle', $order)
-                ->setParameter(':list_id', $listId)
-                ->getQuery()
-                ->getResult();
-
-            return $this->taskRefactoring($tasks);
+            return $lists;
         };
 
         $this->types['task']['date'] = function($order, $listId) {

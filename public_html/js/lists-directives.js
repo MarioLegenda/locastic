@@ -45,7 +45,6 @@ angular.module('locastic.directives', [])
                                 $scope.list.name = '';
                                 $scope.$emit('action.proxy.refresh_list', {});
                             }, function(data) {
-                                console.log(data);
                                 $scope.list.errors.error = true;
                                 $scope.list.errors.messages = data.data;
                             });
@@ -153,8 +152,6 @@ angular.module('locastic.directives', [])
 
                 $scope.$on('action.fetch_data', function($event, data) {
                     $scope.listHandler.interfaceType = data.interfaceType;
-
-                    console.log(data);
 
                     RestInterface = RestProvider.create($scope.listHandler.interfaceType);
 

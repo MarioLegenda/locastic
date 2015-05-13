@@ -142,7 +142,6 @@ angular.module('locastic.directives')
 
                         Task = RestProvider.create('task');
 
-                        console.log($scope.taskItem);
                         promise = Task.deleteItem({
                             taskId: $scope.taskItem.taskid
                         });

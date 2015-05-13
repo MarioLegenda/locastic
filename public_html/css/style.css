@@ -320,7 +320,7 @@ Specific containers and directives like...
   position: relative; }
   .ListRow .RowInfo {
     display: block;
-    width: 25%;
+    width: 20%;
     float: left;
     font-size: 1.2em;
     text-align: center;

@@ -132,9 +132,7 @@ class RestController extends ContainerAware
         );
 
         if( ! ContentEval::builder($builder)->isValid()) {
-            /*
-             * If the server receives invalid client data, it rejects the request
-             * */
+
             $response = new Response();
             $response->setContent(json_encode('An error occurred. Please, refresh the page and try again'));
             $response->setStatusCode(400, "BAD");

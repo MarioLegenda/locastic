@@ -11,6 +11,7 @@ angular.module("locastic.app", [
     .filter('dateParse', function() {
         return function(date) {
             var d = new Date(date.date);
+            console.log(d.getDate() + '.' + (d.getMonth() + 1) + '.' + d.getFullYear());
             return d.getDate() + '.' + (d.getMonth() + 1) + '.' + d.getFullYear();
         }
     });

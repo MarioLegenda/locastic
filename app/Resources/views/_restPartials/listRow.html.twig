@@ -3,9 +3,10 @@
         <div class="Row  ListRow">
             <a class="Expandable" ng-click="directiveData.taskList($event)">
                 <span class="RowInfo">{[{ listItem.listname }]}</span>
-                <span class="RowInfo">{[{ listItem.listcreated }]}</span>
-                <span class="RowInfo">Finished tasks: 0</span>
-                <span class="RowInfo">Pending tasks: 0</span>
+                <span class="RowInfo">{[{ listItem.listcreated | dateParse }]}</span>
+                <span class="RowInfo">Total tasks: {[{ listItem.total_tasks }]}</span>
+                <span class="RowInfo">Pending tasks: {[{ listItem.unfinished }]}</span>
+                <span class="RowInfo">Progress: {[{ listItem.completed }]}%</span>
             </a>
         </div>
 
